@@ -3,15 +3,18 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 import testData from "./test_data";
-import Chance from "chance";
+// import Chance from "chance";
+import shortid from 'shortid';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
-const chance = new Chance();
+// const chance = new Chance();
+// const shortid = new Shortid();
 
 function getData() {
   const data = testData.map(item => {
-    const _id = chance.guid();
+    // const _id = chance.guid();
+       const _id = shortid.generate()
 
     return {
       _id,
@@ -78,6 +81,8 @@ class Boxer extends Component {
     });
   };
 
+  //
+
   toggleAll = () => {
     const selectAll = this.state.selectAll ? false : true;
     const selection = [];
@@ -91,8 +96,11 @@ class Boxer extends Component {
         selection.push(item._original._id);
       });
     }
+
     this.setState({ selectAll, selection });
   };
+
+  //
 
   isSelected = key => {
     return this.state.selection.includes(key);
@@ -100,8 +108,13 @@ class Boxer extends Component {
 
   logSelection = () => {
     console.log("selection:", this.state.selection);
-      console.log("shift:", this.state.shift);
+      // console.log("shift:", this.state.shift);
+
+
         console.log("row:", this.state.row);
+        console.log("fname:", this.state.row.first_name);
+
+
   };
 
   render() {
@@ -120,6 +133,7 @@ class Boxer extends Component {
     return (
       <div>
         <button onClick={logSelection}>Log Selection</button>
+
         <CheckboxTable
           ref={r => (this.checkboxTable = r)}
           data={data}
