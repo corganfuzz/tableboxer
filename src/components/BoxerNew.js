@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
-import testData from "./test_data";
+import testData from "../test_data";
 // import Chance from "chance";
 // import shortid from 'shortid';
 
