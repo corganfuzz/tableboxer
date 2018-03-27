@@ -4,7 +4,7 @@ import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 import testData from "./test_data";
 // import Chance from "chance";
-import shortid from 'shortid';
+// import shortid from 'shortid';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
@@ -14,10 +14,10 @@ const CheckboxTable = checkboxHOC(ReactTable);
 function getData() {
   const data = testData.map(item => {
     // const _id = chance.guid();
-       const _id = shortid.generate()
+       // const _id = shortid.generate()
 
     return {
-      _id,
+      // _id,
       ...item
     };
   });
@@ -32,11 +32,14 @@ function getColumns(data) {
   const sample = data[0];
 
   Object.keys(sample).forEach(key => {
-    if (key !== "_id") {
+
+    if (key !== "id") {
+
       columns.push({
         accessor: key,
-        Header: key
+        Header: key.charAt(0).toUpperCase() + key.slice(1)
       });
+
     }
   });
   return columns;
@@ -77,7 +80,7 @@ class Boxer extends Component {
     this.setState({
       selection: selection,
       shift: shift,
-      row: row
+      row: row.hostname
     });
   };
 
@@ -106,13 +109,16 @@ class Boxer extends Component {
     return this.state.selection.includes(key);
   };
 
-  logSelection = () => {
-    console.log("selection:", this.state.selection);
-      // console.log("shift:", this.state.shift);
+  logSelection = (indexes) => {
 
+    indexes = this.state.selection
 
-        console.log("row:", this.state.row);
-        console.log("fname:", this.state.row.first_name);
+    const selectedIndexes = indexes.map(x => this.state.data[x-1].hostname)
+
+    console.log('selection:', this.state.selection);
+    // console.log('data:', this.state.data)
+    //
+    console.log(selectedIndexes)
 
 
   };
@@ -132,16 +138,20 @@ class Boxer extends Component {
 
     return (
       <div>
-        <button onClick={logSelection}>Log Selection</button>
 
         <CheckboxTable
+          keyField='id'
           ref={r => (this.checkboxTable = r)}
           data={data}
           columns={columns}
           defaultPageSize={10}
           {...checkboxProps}
         />
+<br/>
+  <button onClick={logSelection}><h3>Console Log It </h3></button>
       </div>
+
+
     );
   }
 }
