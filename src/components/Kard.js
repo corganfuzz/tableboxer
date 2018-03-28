@@ -36,7 +36,7 @@ export default class Kard extends Component {
 
           <IButton
             backgroundColor="#a4c639"
-            labelColor="white"
+            labelColor="#FFF"
             label="INSTALL"
             style={styles.button}
           />
