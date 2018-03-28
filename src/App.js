@@ -1,29 +1,38 @@
 import React, { Component } from "react";
 // import logo from "./logo.svg";
-import AppBar from 'material-ui/AppBar';
+import AppBar from "material-ui/AppBar";
 import "./App.css";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import ContentViewer from './components/ContentViewer';
+import ContentViewer from "./components/ContentViewer";
+
+import { Provider } from "react-redux";
+import store from "./store";
 
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider>
+      <Provider
+        store={store}
+      >
 
-        <AppBar
-          title='Testing Redux'
-          style={{backgroundColor: '#744cbc'}}
-        />
-        <div className="App">
+        <MuiThemeProvider>
 
-          {/* <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header> */}
+          <div>
 
-           <ContentViewer />
-        </div>
-      </MuiThemeProvider>
+          <AppBar
+            title="Testing Redux"
+            style={{ backgroundColor: "#744cbc" }}
+          />
+
+
+            <ContentViewer />
+
+          </div>
+
+        </MuiThemeProvider>
+
+          </Provider>
+
     );
   }
 }

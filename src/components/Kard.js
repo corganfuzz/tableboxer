@@ -6,7 +6,11 @@ import IButton from 'material-ui/RaisedButton';
 const styles = {
   cardie:{
     width: 250,
-    height: 200,
+    height: 'auto',
+  },
+  button:{
+    width: '100%',
+    padding: 5
   }
 }
 
@@ -19,12 +23,12 @@ export default class Kard extends Component {
         >
           <CardHeader
             title="INSTALL"
-            subtitle="Install some bruh"
-            actAsExpander={false}
+            // subtitle="Install some bruh"
+            actAsExpander={true}
             showExpandableButton={true}
           />
           <CardText
-            expandable={false}
+            expandable={true}
           >
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 
