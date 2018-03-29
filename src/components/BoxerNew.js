@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
-// import shortid from 'shortid';
 import "react-table/react-table.css";
 
 import checkboxHOC from "react-table/lib/hoc/selectTable";
@@ -45,7 +44,7 @@ class BoxerNew extends Component {
 
    getColumns(data) {
 
-           console.log (data);
+           // console.log (data);
 
           if (data.length > 0) {
 
@@ -121,11 +120,13 @@ class BoxerNew extends Component {
 
     indexes = this.state.selection
 
-    const selectedIndexes = indexes.map(x => this.state.data[x-1].hostname)
+    // console.log(this.props.hostnames)
 
-    console.log('selection:', this.state.selection);
-    // console.log('data:', this.state.data)
+    const selectedIndexes = indexes.map(x => this.props.hostnames[x-1].hostname)
     //
+    // console.log('selection:', this.state.selection);
+    // // console.log('data:', this.state.data)
+    // //
     console.log(selectedIndexes)
 
 
@@ -141,14 +142,14 @@ class BoxerNew extends Component {
 
       const data = this.getData(hostitems);
 
-      console.log(data)
+      // console.log(data)
 
 
 
 
 
       const columns = this.getColumns(data)
-            console.log(columns)
+            // console.log(columns)
 
 // This is for the first table
 
@@ -172,13 +173,9 @@ class BoxerNew extends Component {
     // ];
 
     const { toggleSelection, toggleAll, isSelected, logSelection } = this;
-    //
+
     const {selectAll } = this.state;
-    //
-    // const data = this.props.fetchHosts;
-    //
-    // const columns = this.getColumns(data);
-    //
+
     const checkboxProps = {
       selectAll,
       isSelected,
@@ -198,12 +195,6 @@ class BoxerNew extends Component {
       {
         this.props.hostnames.length > 0
       ?
-              // <ReactTable
-              //   data={hostitems}
-              //   columns={columns}
-              //   minRows={11}
-              // />
-
              <CheckboxTable
                 keyField='id'
                 ref={r => (this.checkboxTable = r)}
@@ -216,8 +207,8 @@ class BoxerNew extends Component {
       : <div></div>
       }
 
-{/* <br/>
-  <button onClick={logSelection}><h3>Console Log It </h3></button> */}
+<br/>
+  <button onClick={logSelection}><h3>Console Log It </h3></button>
       </div>
 
 
