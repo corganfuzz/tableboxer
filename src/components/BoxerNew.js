@@ -123,6 +123,8 @@ class BoxerNew extends Component {
     // const selectedIndexes = selectedDeviceIds.map(x => this.props.hostnames[x-1])
     const {hostnames} = this.props
 
+    // console.log(this.props.hostnames)
+
     const selectedDevices = hostnames.filter((hostname) => {
       return selectedDeviceIds.includes(hostname.deviceId)
 
@@ -142,15 +144,9 @@ class BoxerNew extends Component {
 
     // console.log (hostitems)
 
-
-
       const data = this.getData(hostitems);
 
       // console.log(data)
-
-
-
-
 
       const columns = this.getColumns(data)
             // console.log(columns)
@@ -187,14 +183,9 @@ class BoxerNew extends Component {
       toggleAll,
       selectType: "checkbox"
     };
-    //
-
 
     return (
       <div>
-          <h1>Fetching with redux </h1>
-          {/* {hostitems} */}
-
       {
         this.props.hostnames.length > 0
       ?

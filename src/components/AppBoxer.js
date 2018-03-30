@@ -116,15 +116,15 @@ class AppBoxer extends Component {
 
     selectedAppIds = this.state.selection
 
+    const { appz } = this.props
+    // console.log(this.props.appz)
+    //
+    const selectedAppz = appz.filter((appz) => {
+      return selectedAppIds.includes(appz.stackDefId)
 
-    // const {stackDefName} = this.props
-    //
-    // const selectedDevices = stackDefName.filter((stackDefName) => {
-    //   return selectedAppIds.includes(stackDefName.deviceId)
-    //
-    // }).map((device) => (device.deviceName))
-    //
-    // console.log(selectedDevices)
+    }).map((app) => (app.stackDefName))
+
+    console.log(selectedAppz)
 
 
 
@@ -181,15 +181,9 @@ class AppBoxer extends Component {
       toggleAll,
       selectType: "checkbox"
     };
-    //
-
-
-
+    
     return (
       <div>
-          <h1>Fetching with redux </h1>
-          {/* {hostitems} */}
-
       {
         this.props.appz.length > 0
       ?
