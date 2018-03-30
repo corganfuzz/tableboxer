@@ -1,4 +1,5 @@
-export default [
+export default
+[
   {
     deviceId: 82034896,
     deviceName: "Sperry-kontron",

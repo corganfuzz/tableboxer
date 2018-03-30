@@ -5,18 +5,16 @@ import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 
 import { connect } from 'react-redux';
-import { fetchHosts } from '../actions/hostnameActions';
+import { fetchAppz } from '../actions/hostnameActions';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
 
-class BoxerNew extends Component {
+class AppBoxer extends Component {
   constructor() {
     super();
 
     this.state = {
-      // data,
-      // columns,
       selection: [],
       row: [],
       selectAll: false
@@ -25,11 +23,11 @@ class BoxerNew extends Component {
 
 
   componentWillMount () {
-    this.props.fetchHosts()
+    this.props.fetchAppz()
   }
 
-  getData(hostitems) {
-      const data = hostitems.map(item => {
+  getData(appitemz) {
+      const data = appitemz.map(item => {
 
         return {
           // _id,
@@ -53,7 +51,7 @@ class BoxerNew extends Component {
 
           Object.keys(sample).forEach(key => {
 
-            if (key !== "deviceId") {
+            if (key !== "stackDefId") {
 
               columns.push({
                 accessor: key,
@@ -114,31 +112,27 @@ class BoxerNew extends Component {
     return this.state.selection.includes(key);
   };
 
-  logSelection = (selectedDeviceIds) => {
+  logSelection = (selectedAppIds) => {
 
-    selectedDeviceIds = this.state.selection
+    selectedAppIds = this.state.selection
 
-    // console.log(this.props.hostnames)
 
-    // const selectedIndexes = selectedDeviceIds.map(x => this.props.hostnames[x-1])
-    const {hostnames} = this.props
+    // const {stackDefName} = this.props
+    //
+    // const selectedDevices = stackDefName.filter((stackDefName) => {
+    //   return selectedAppIds.includes(stackDefName.deviceId)
+    //
+    // }).map((device) => (device.deviceName))
+    //
+    // console.log(selectedDevices)
 
-    const selectedDevices = hostnames.filter((hostname) => {
-      return selectedDeviceIds.includes(hostname.deviceId)
 
-    }).map((device) => (device.deviceName))
-    console.log(selectedDevices)
-
-    // console.log('selection:', this.state.selection);
-    // // console.log('data:', this.state.data)
-
-    // console.log(selectedIndexes)
 
   };
 
   render() {
 
-    const hostitems = this.props.hostnames
+    const hostitems = this.props.appz
 
     // console.log (hostitems)
 
@@ -178,7 +172,7 @@ class BoxerNew extends Component {
 
     const { toggleSelection, toggleAll, isSelected, logSelection } = this;
 
-    const {selectAll } = this.state;
+    const { selectAll } = this.state;
 
     const checkboxProps = {
       selectAll,
@@ -190,16 +184,17 @@ class BoxerNew extends Component {
     //
 
 
+
     return (
       <div>
           <h1>Fetching with redux </h1>
           {/* {hostitems} */}
 
       {
-        this.props.hostnames.length > 0
+        this.props.appz.length > 0
       ?
              <CheckboxTable
-                keyField="deviceId"
+                keyField="stackDefId"
                 ref={r => (this.checkboxTable = r)}
                 data={hostitems}
                 columns={columns}
@@ -220,7 +215,7 @@ class BoxerNew extends Component {
 }
 
 const mapStatetoProps = state => ({
-  hostnames: state.hostnames.items
+   appz: state.hostnames.itemz
 })
 
-export default connect(mapStatetoProps, { fetchHosts })(BoxerNew);
+export default connect(mapStatetoProps, { fetchAppz })(AppBoxer);

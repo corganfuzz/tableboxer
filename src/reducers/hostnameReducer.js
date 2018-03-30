@@ -1,7 +1,8 @@
-import { FETCH_HOSTNAMES } from '../actions/Types';
+import { FETCH_HOSTNAMES, FETCH_APPZ } from '../actions/Types';
 
 const initialState = {
-  items: []
+  items: [],
+  itemz: []
 }
 
 export default function(state = initialState, action) {
@@ -11,6 +12,11 @@ export default function(state = initialState, action) {
       ...state,
       items: action.payload
     };
+    case FETCH_APPZ:
+    return {
+      ...state,
+      itemz: action.payload
+    }
     default:
       return state;
   }
