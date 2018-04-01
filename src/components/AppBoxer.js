@@ -42,25 +42,25 @@ class AppBoxer extends Component {
 
            // console.log (data);
 
-          if (data.length > 0) {
+      if (data.length > 0) {
 
-            const columns = [];
+        const columns = [];
 
-            const sample = data[0];
+        const sample = data[0];
 
 
           Object.keys(sample).forEach(key => {
+
 
             if (key !== "stackDefId") {
 
               columns.push({
                 accessor: key,
                 Header: key.charAt(0).toUpperCase() + key.slice(1)
-              });
-
+              })
             }
           });
-          return columns;
+          return columns
         }
       }
 
@@ -181,7 +181,7 @@ class AppBoxer extends Component {
       toggleAll,
       selectType: "checkbox"
     };
-    
+
     return (
       <div>
       {
