@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import BoxerNew from './BoxerNew';
-import AppBoxer from './AppBoxer';
-import Kard from './Kard';
+import React, { Component } from "react";
+import BoxerNew from "./BoxerNew";
+import AppBoxer from "./AppBoxer";
+import Kard from "./Kard";
 
 const styles = {
   center: {
@@ -11,15 +11,34 @@ const styles = {
 };
 
 export default class ContentViewer extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state ={
+      modalOpen: false
+    }
+
+  }
+
   render() {
+
+
     return (
       <div style={styles.center}>
         <div className="row">
           <div className="col-xs-12">
-            <Kard />
-          </div>
+
+
+            <Kard
+              handleModalOpen={this.handleModalOpen}
+            />
+
+
+            </div>
         </div>
+
         <br />
+
         <div className="row">
           <div className="col-xs-6">
             <BoxerNew />

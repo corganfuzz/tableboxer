@@ -31,7 +31,7 @@ class App extends Component {
 
         </MuiThemeProvider>
 
-          </Provider>
+      </Provider>
 
     );
   }

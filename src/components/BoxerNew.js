@@ -60,7 +60,7 @@ class BoxerNew extends Component {
                 Header: key.charAt(0).toUpperCase() + key.slice(1)
               });
 
-              console.log(columns)
+              // console.log(columns)
             }
           });
           return columns;
