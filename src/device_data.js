@@ -2,7 +2,7 @@ export default
 [
   {
     deviceId: 82034896,
-    deviceName: "Sperry-kontron",
+    deviceName: "RWS01534531",
     deviceDefId: 82026704,
     deviceDefinitionName: "Kontron",
     psl: "Sperry",
@@ -11,7 +11,7 @@ export default
   },
   {
     deviceId: 82051280,
-    deviceName: "PE-kontron",
+    deviceName: "np1rtsdocker02v",
     deviceDefId: 82026704,
     deviceDefinitionName: "kontron",
     psl: "PE",
@@ -20,7 +20,7 @@ export default
   },
   {
     deviceId: 82075856,
-    deviceName: "HDS-kontron",
+    deviceName: "np1rtsdocker03v",
     deviceDefId: 82026704,
     deviceDefinitionName: "kontron",
     psl: "HDS",
@@ -29,7 +29,7 @@ export default
   },
   {
     deviceId: 122912968,
-    deviceName: "Dev-test",
+    deviceName: "np1rtsdocker04v",
     deviceDefId: 82026704,
     deviceDefinitionName: "VM",
     psl: "Dev team",
@@ -37,3 +37,12 @@ export default
     rig: "UNK"
   }
 ];
+
+// ["RWS01534531",
+// "np1rtsdocker02v",
+// "np1rtsdocker03v",
+// "np1rtsdocker04v",
+// "np1rtsdocker01v",
+// "NCC1701D",
+// "lsiot-Win10Ent",
+// "lsiot-Win10Ent-Naren"]

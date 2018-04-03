@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 
-import { connect } from 'react-redux';
-import { fetchAppz } from '../actions/hostnameActions';
+import { connect } from "react-redux";
+import { fetchAppz } from "../actions/hostnameActions";
 
 const CheckboxTable = checkboxHOC(ReactTable);
-
 
 class AppBoxer extends Component {
   constructor() {
@@ -21,62 +19,51 @@ class AppBoxer extends Component {
     };
   }
 
-
-  componentWillMount () {
-    this.props.fetchAppz()
+  componentWillMount() {
+    this.props.fetchAppz();
   }
 
   getData(appitemz) {
-      const data = appitemz.map(item => {
+    const data = appitemz.map(item => {
+      return {
+        // _id,
+        ...item
+      };
+    });
 
-        return {
-          // _id,
-          ...item
-        };
-      });
+    return data;
+  }
 
-      return data;
-    }
+  getColumns(data) {
+    // console.log (data);
 
-   getColumns(data) {
+    if (data.length > 0) {
+      const columns = [];
 
-           // console.log (data);
+      const sample = data[0];
 
-      if (data.length > 0) {
-
-        const columns = [];
-
-        const sample = data[0];
-
-
-          Object.keys(sample).forEach(key => {
-
-
-            if (key !== "stackDefId") {
-
-              columns.push({
-                accessor: key,
-                Header: key.charAt(0).toUpperCase() + key.slice(1)
-              })
-            }
+      Object.keys(sample).forEach(key => {
+        if (key !== "stackDefId") {
+          columns.push({
+            accessor: key,
+            Header: key.charAt(0).toUpperCase() + key.slice(1)
           });
-          return columns
         }
-      }
+      });
+      return columns;
+    }
+  }
 
   toggleSelection = (key, shift, row) => {
-
     let selection = [...this.state.selection];
 
     const keyIndex = selection.indexOf(key);
 
     if (keyIndex >= 0) {
-
       selection = [
         ...selection.slice(0, keyIndex),
         ...selection.slice(keyIndex + 1)
       ];
-
     } else {
       selection.push(key);
     }
@@ -112,44 +99,34 @@ class AppBoxer extends Component {
     return this.state.selection.includes(key);
   };
 
-  logSelection = (selectedAppIds) => {
+  logSelection = selectedAppIds => {
+    selectedAppIds = this.state.selection;
 
-    selectedAppIds = this.state.selection
-
-    const { appz } = this.props
+    const { appz } = this.props;
     // console.log(this.props.appz)
     //
-    const selectedAppz = appz.filter((appz) => {
-      return selectedAppIds.includes(appz.stackDefId)
+    const selectedAppz = appz
+      .filter(appz => {
+        return selectedAppIds.includes(appz.stackDefId);
+      })
+      .map(app => app.stackDefName);
 
-    }).map((app) => (app.stackDefName))
-
-    console.log(selectedAppz)
-
-
-
+    console.log(selectedAppz);
   };
 
   render() {
-
-    const hostitems = this.props.appz
+    const hostitems = this.props.appz;
 
     // console.log (hostitems)
 
+    const data = this.getData(hostitems);
 
+    // console.log(data)
 
-      const data = this.getData(hostitems);
+    const columns = this.getColumns(data);
+    // console.log(columns)
 
-      // console.log(data)
-
-
-
-
-
-      const columns = this.getColumns(data)
-            // console.log(columns)
-
-// This is for the first table
+    // This is for the first table
 
     // const columns = [
     //   {
@@ -184,32 +161,33 @@ class AppBoxer extends Component {
 
     return (
       <div>
-      {
-        this.props.appz.length > 0
-      ?
-             <CheckboxTable
-                keyField="stackDefId"
-                ref={r => (this.checkboxTable = r)}
-                data={hostitems}
-                columns={columns}
-                defaultPageSize={10}
-                {...checkboxProps}
-              />
+        {this.props.appz.length > 0 ? (
 
-      : <div></div>
-      }
+          <CheckboxTable
+            keyField="stackDefId"
+            filterable
+            noDataText="Value not found"
+            ref={r => (this.checkboxTable = r)}
+            data={hostitems}
+            columns={columns}
+            defaultPageSize={10}
+            {...checkboxProps}
+          />
+        ) : (
+          <div />
+        )}
 
-<br/>
-  <button onClick={logSelection}><h3>Console Log It </h3></button>
+        <br />
+        <button onClick={logSelection}>
+          <h3>Console Log It </h3>
+        </button>
       </div>
-
-
     );
   }
 }
 
 const mapStatetoProps = state => ({
-   appz: state.hostnames.itemz
-})
+  appz: state.hostnames.itemz
+});
 
 export default connect(mapStatetoProps, { fetchAppz })(AppBoxer);
