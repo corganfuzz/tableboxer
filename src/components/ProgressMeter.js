@@ -43,6 +43,8 @@ class ProgressMeter extends Component {
       }
     };
 
+    // console.log('progress', this.props.passedcfes)
+
     return (
       <Dialog
         title="Install selected app(s)"
@@ -50,11 +52,13 @@ class ProgressMeter extends Component {
         open={this.props.open}
         onRequestClose={this.props.handleClose}
         titleStyle={styles.title}
+        passedcfes={this.props.passedcfes}
       >
         <br/>
         <div className='row'>
           <div className='col-lg-6'>
-            Selected CFEs:
+            Selected CFEs:<br/>
+            <span>{this.props.passedcfes}</span>
           </div>
           <div className='col-lg-6'>
             Selected Apps:
@@ -73,7 +77,7 @@ class ProgressMeter extends Component {
               value={100}
             />
 
-            <div style={styles.rightNum}>4</div>
+            <div style={styles.rightNum}>{this.props.passedcfes.length}</div>
 
             <br />
 

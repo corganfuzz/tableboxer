@@ -3,166 +3,46 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 
-import { connect } from "react-redux";
-import { fetchHosts } from "../actions/hostnameActions";
-
 const CheckboxTable = checkboxHOC(ReactTable);
 
 class BoxerNew extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      // data,
-      // columns,
-      selection: [],
-      row: [],
-      selectAll: false
-    };
-  }
-
-  componentWillMount() {
-    this.props.fetchHosts();
-  }
-
-  getData(hostitems) {
-    const data = hostitems.map(item => {
-      return {
-        // _id,
-        ...item
-      };
-    });
-
-    return data;
-  }
-
-  getColumns(data) {
-    // console.log (data);
-
-    if (data.length > 0) {
-      const columns = [];
-
-      const sample = data[0];
-
-      Object.keys(sample).forEach(key => {
-        if (key !== "deviceId") {
-          columns.push({
-            accessor: key,
-            Header: key.charAt(0).toUpperCase() + key.slice(1)
-          });
-          // console.log(columns)
-        }
-      });
-      return columns;
-    }
-  }
-
-  toggleSelection = (key, shift, row) => {
-    let selection = [...this.state.selection];
-
-    const keyIndex = selection.indexOf(key);
-
-    if (keyIndex >= 0) {
-      selection = [
-        ...selection.slice(0, keyIndex),
-        ...selection.slice(keyIndex + 1)
-      ];
-    } else {
-      selection.push(key);
-    }
-    this.setState({
-      selection: selection,
-      row: row
-    });
-  };
-
-  toggleAll = () => {
-    const selectAll = this.state.selectAll ? false : true;
-    const selection = [];
-
-    if (selectAll) {
-      const wrappedInstance = this.CheckboxTable.getWrappedInstance();
-
-      const currentRecords = wrappedInstance.getResolvedState().sortedData;
-
-      currentRecords.forEach(item => {
-        selection.push(item._original._id);
-      });
-    }
-
-    this.setState({ selectAll, selection });
-  };
-
-  isSelected = key => {
-    return this.state.selection.includes(key);
-  };
-
-  logSelection = selectedDeviceIds => {
-    selectedDeviceIds = this.state.selection;
-
-    // const selectedIndexes = selectedDeviceIds.map(x => this.props.hostnames[x-1])
-    const { hostnames } = this.props;
-
-    const selectedDevices = hostnames
-      .filter(hostname => {
-        return selectedDeviceIds.includes(hostname.deviceId);
-      })
-      .map(device => device.deviceName);
-
-      this.props.cfecallback(selectedDevices)
-
-    console.log(selectedDevices);
-  };
-
-
   render() {
-    const hostitems = this.props.hostnames;
-    // console.log (hostitems)
-    const data = this.getData(hostitems);
-    // console.log(data)
-    const columns = this.getColumns(data);
-    // console.log(columns)
-    // This is for the first table
-    const { toggleSelection, toggleAll, isSelected, logSelection } = this;
+    // this.props.selectionx(logSelection)
 
-    const { selectAll } = this.state;
-
-    const checkboxProps = {
-      selectAll,
-      isSelected,
-      toggleSelection,
-      toggleAll,
-      selectType: "checkbox"
-    };
+    // console.log(logSelection)
 
     return (
       <div>
-        {this.props.hostnames.length > 0 ? (
+
+
           <CheckboxTable
             keyField="deviceId"
             noDataText="Value not found"
             filterable
             ref={r => (this.checkboxTable = r)}
-            data={hostitems}
-            columns={columns}
+            data={this.props.data}
+            columns={this.props.columns}
             defaultPageSize={10}
-            {...checkboxProps}
+            toggleSelection={this.props.toggleSelection}
+            isSelected={this.props.isSelected}
+            selectType={this.props.selectType}
+            selectAll={this.props.selectAll}
+            toggleAll={this.props.toggleAll}
+            // {...checkboxProps}
+            // onClick={logSelection}
+            // logSelection={this.props.logSelection}
           />
-        ) : (
-          <div />
-        )}
 
         <br />
-        <button onClick={logSelection}>
+        {/* <button
+          onClick={logSelection}
+        >
           <h3>Console Log It </h3>
-        </button>
+
+        </button> */}
       </div>
     );
   }
 }
 
-const mapStatetoProps = state => ({
-  hostnames: state.hostnames.items
-});
-
-export default connect(mapStatetoProps, { fetchHosts })(BoxerNew);
+export default BoxerNew;

@@ -15,6 +15,7 @@ const styles = {
 }
 
 export default class Kard extends Component {
+
   // constructor(props) {
   //   super(props);
   //
@@ -62,6 +63,7 @@ export default class Kard extends Component {
             label={this.props.label}
             style={styles.button}
             onClick={this.props.handleOpen}
+
           />
 
         </Card>
