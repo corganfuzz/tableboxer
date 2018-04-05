@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import BoxerNew from "./BoxerNew";
-import AppBoxer from "./AppBoxer";
+import AppBoxer from './AppBoxer'
 import Kard from "./Kard";
 import ProgressMeter from './ProgressMeter';
+// import _ from 'lodash';
 
 import { connect } from 'react-redux';
 import { fetchHosts } from '../actions/hostnameActions';
-
+import { fetchAppz } from "../actions/hostnameActions";
 
 const styles = {
   center: {
@@ -23,15 +24,27 @@ class ContentViewer extends Component {
 
     this.state = {
       open: false,
-      cfes: [],
+      // loading: false,
       selection: [],
-      // row: [],
-      selectAll: false
+      selectAll: false,
+      cfes: [],
+
+      Appselection: [],
+      selectAllApps: false,
+      appz: []
+
     }
   }
 
+
+  onFilteredChange(column, value) {
+    this.filtering = true;
+  }
+
   componentWillMount() {
+
     this.props.fetchHosts();
+    this.props.fetchAppz();
   }
 
   getData(hostitems) {
@@ -41,11 +54,12 @@ class ContentViewer extends Component {
         ...item
       };
     });
-
     return data;
   }
 
-  getColumns(data) {
+// ---> get columns for both tables
+
+  getColumns(data, tag) {
     // console.log (data);
 
     if (data.length > 0) {
@@ -54,7 +68,7 @@ class ContentViewer extends Component {
       const sample = data[0];
 
       Object.keys(sample).forEach(key => {
-        if (key !== "deviceId") {
+        if (key !== tag) {
           columns.push({
             accessor: key,
             Header: key.charAt(0).toUpperCase() + key.slice(1)
@@ -66,7 +80,10 @@ class ContentViewer extends Component {
     }
   }
 
+// ---> toggleSelection for both tables
+
   toggleSelection = (key, shift, row) => {
+        // this.setState({loading:false})
     let selection = [...this.state.selection];
 
     const keyIndex = selection.indexOf(key);
@@ -85,6 +102,31 @@ class ContentViewer extends Component {
     });
   };
 
+  toggleAppSelection = (key, shift, row) => {
+
+    let Appselection = [...this.state.Appselection];
+
+    const keyIndex = Appselection.indexOf(key);
+
+    if (keyIndex >= 0) {
+      Appselection = [
+        ...Appselection.slice(0, keyIndex),
+        ...Appselection.slice(keyIndex + 1)
+      ];
+    } else {
+      Appselection.push(key);
+    }
+    this.setState({
+      Appselection: Appselection,
+      // loading: false
+      // row: row
+    });
+  };
+
+// ---> end
+
+// ---> Toggle All for both tables
+
   toggleAll = () => {
     const selectAll = this.state.selectAll ? false : true;
     const selection = [];
@@ -102,15 +144,49 @@ class ContentViewer extends Component {
     this.setState({ selectAll, selection });
   };
 
+  // ---> second one
+
+  toggleAllApps = () => {
+    const selectAllApps = this.state.selectAllApps ? false : true;
+    const Appselection = [];
+
+    if (selectAllApps) {
+      const wrappedInstance = this.CheckboxTable.getWrappedInstance();
+
+      const currentRecords = wrappedInstance.getResolvedState().sortedData;
+
+      currentRecords.forEach(item => {
+        Appselection.push(item._original._id);
+      });
+    }
+
+    this.setState({ selectAllApps, Appselection });
+  };
+
+  // ---> end
+
+  // ---> isSelected for both tables
+
   isSelected = key => {
     return this.state.selection.includes(key);
   };
 
-  logSelection = (selectedDeviceIds) => {
+  isAppSelected = key => {
+    return this.state.Appselection.includes(key);
+  };
+
+  // ---> end
+
+  // ---> here we combine both selections in 1 function
+
+  logSelection = (selectedDeviceIds, selectedAppIds) => {
+
     selectedDeviceIds = this.state.selection;
+    selectedAppIds = this.state.Appselection;
 
     // const selectedIndexes = selectedDeviceIds.map(x => this.props.hostnames[x-1])
-    const { hostnames } = this.props;
+    //
+    const { hostnames, appz } = this.props;
 
     const selectedDevices = hostnames
       .filter(hostname => {
@@ -118,19 +194,21 @@ class ContentViewer extends Component {
       })
       .map(device => device.deviceName);
 
+    const selectedAppz = appz
+      .filter(appz => {
+        return selectedAppIds.includes(appz.stackDefId);
+      })
+      .map(app => app.stackDefName);
+
       // this.props.cfecallback(selectedDevices)
+
       this.setState({ cfes: selectedDevices})
+      this.setState({ appz: selectedAppz})
 
     console.log(selectedDevices);
+    console.log(selectedAppz)
   };
 
-
-  // cfeCallback (selectedDevices) {
-  //   this.setState({
-  //     cfes:selectedDevices
-  //   })
-  // }
-  //
 
   handleOpen = () => {
     this.setState({
@@ -152,22 +230,42 @@ class ContentViewer extends Component {
 
 
   render() {
+    //===>FROM REDUX
+    const appz = this.props.appz
     const hostitems = this.props.hostnames;
-    // console.log (hostitems)
+    // console.log (appz)
+
+    //===>SEPARATOR
     const data = this.getData(hostitems);
+    const Appdata = this.getData(appz);
     // console.log(data)
-    const columns = this.getColumns(data);
+
+    //===>SEPARATOR
+    const columns = this.getColumns(data,"deviceId");
+    const Appcolumns = this.getColumns(Appdata,"stackDefId")
     // console.log(columns)
-    // This is for the first table
-    const { toggleSelection, toggleAll, isSelected } = this;
 
-    const { selectAll } = this.state;
+    //===>SEPARATOR
+    const { toggleSelection, toggleAppSelection,
+            toggleAll, toggleAllapps,
+            isSelected, isAppSelected } = this;
+    const { selectAll, selectAllApps } = this.state;
 
+    //===>SEPARATOR
     const checkboxProps = {
-      selectAll,
-      isSelected,
       toggleSelection,
       toggleAll,
+      selectAll,
+      isSelected,
+      // logSelection,
+      selectType: "checkbox"
+    };
+
+    const AppCheckboxProps = {
+      toggleAppSelection,
+      toggleAllapps,
+      selectAllApps,
+      isAppSelected,
       // logSelection,
       selectType: "checkbox"
     };
@@ -208,29 +306,39 @@ class ContentViewer extends Component {
           </div>
 
           <div className="col-xs-6">
-
-            <AppBoxer />
-
+        {
+          this.props.appz.length > 0
+          ?
+            <AppBoxer
+              Appdata={appz}
+              Appcolumns={Appcolumns}
+              {...AppCheckboxProps}
+            />
+          :<div></div>
+        }
           </div>
         </div>
-        {/* {
-          this.state.cfes > 0
-          ? */}
+        {
+          this.state.cfes.length > 0
+          ?
           <ProgressMeter
             title={this.props.title}
             modal={this.props.modal}
             open={this.state.open}
             handleClose={this.handleClose}
             passedcfes={this.state.cfes}
+            passedappz={this.state.appz}
           />
-
+: <div></div>
+}
       </div>
     );
   }
 }
 
 const mapStatetoProps = state => ({
-  hostnames: state.hostnames.items
+  hostnames: state.hostnames.items,
+  appz: state.hostnames.itemz
 });
 
-export default connect(mapStatetoProps, { fetchHosts })(ContentViewer);
+export default connect(mapStatetoProps, { fetchHosts, fetchAppz })(ContentViewer);

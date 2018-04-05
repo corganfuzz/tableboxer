@@ -14,7 +14,6 @@ class BoxerNew extends Component {
     return (
       <div>
 
-
           <CheckboxTable
             keyField="deviceId"
             noDataText="Value not found"
@@ -33,8 +32,8 @@ class BoxerNew extends Component {
             // logSelection={this.props.logSelection}
           />
 
-        <br />
-        {/* <button
+        {/* <br />
+        <button
           onClick={logSelection}
         >
           <h3>Console Log It </h3>

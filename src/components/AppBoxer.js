@@ -3,191 +3,35 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 
-import { connect } from "react-redux";
-import { fetchAppz } from "../actions/hostnameActions";
-
 const CheckboxTable = checkboxHOC(ReactTable);
 
 class AppBoxer extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      selection: [],
-      row: [],
-      selectAll: false
-    };
-  }
-
-  componentWillMount() {
-    this.props.fetchAppz();
-  }
-
-  getData(appitemz) {
-    const data = appitemz.map(item => {
-      return {
-        // _id,
-        ...item
-      };
-    });
-
-    return data;
-  }
-
-  getColumns(data) {
-    // console.log (data);
-
-    if (data.length > 0) {
-      const columns = [];
-
-      const sample = data[0];
-
-      Object.keys(sample).forEach(key => {
-        if (key !== "stackDefId") {
-          columns.push({
-            accessor: key,
-            Header: key.charAt(0).toUpperCase() + key.slice(1)
-          });
-        }
-      });
-      return columns;
-    }
-  }
-
-  toggleSelection = (key, shift, row) => {
-    let selection = [...this.state.selection];
-
-    const keyIndex = selection.indexOf(key);
-
-    if (keyIndex >= 0) {
-      selection = [
-        ...selection.slice(0, keyIndex),
-        ...selection.slice(keyIndex + 1)
-      ];
-    } else {
-      selection.push(key);
-    }
-    this.setState({
-      selection: selection,
-      // row: row.hostname
-      row: row
-    });
-  };
-  //
-  // //
-  //
-  toggleAll = () => {
-    const selectAll = this.state.selectAll ? false : true;
-    const selection = [];
-
-    if (selectAll) {
-      const wrappedInstance = this.CheckboxTable.getWrappedInstance();
-
-      const currentRecords = wrappedInstance.getResolvedState().sortedData;
-
-      currentRecords.forEach(item => {
-        selection.push(item._original._id);
-      });
-    }
-
-    this.setState({ selectAll, selection });
-  };
-  //
-  // //
-  //
-  isSelected = key => {
-    return this.state.selection.includes(key);
-  };
-
-  logSelection = selectedAppIds => {
-    selectedAppIds = this.state.selection;
-
-    const { appz } = this.props;
-    // console.log(this.props.appz)
-    //
-    const selectedAppz = appz
-      .filter(appz => {
-        return selectedAppIds.includes(appz.stackDefId);
-      })
-      .map(app => app.stackDefName);
-
-    console.log(selectedAppz);
-  };
-
   render() {
-    const hostitems = this.props.appz;
-
-    // console.log (hostitems)
-
-    const data = this.getData(hostitems);
-
-    // console.log(data)
-
-    const columns = this.getColumns(data);
-    // console.log(columns)
-
-    // This is for the first table
-
-    // const columns = [
-    //   {
-    //     Header: "Host Name",
-    //     accessor: "hostname" // String-based value accessors!
-    //   },
-    //   {
-    //     Header: "PSL",
-    //     accessor: "psl"
-    //   },
-    //   {
-    //     Header: "Type",
-    //     accessor: "model"
-    //   },
-    //   {
-    //     Header: "Rig",
-    //     accessor: "rig"
-    //   }
-    // ];
-
-    const { toggleSelection, toggleAll, isSelected, logSelection } = this;
-
-    const { selectAll } = this.state;
-
-    const checkboxProps = {
-      selectAll,
-      isSelected,
-      toggleSelection,
-      toggleAll,
-      selectType: "checkbox"
-    };
-
     return (
       <div>
-        {this.props.appz.length > 0 ? (
 
           <CheckboxTable
             keyField="stackDefId"
             filterable
             noDataText="Value not found"
-            ref={r => (this.checkboxTable = r)}
-            data={hostitems}
-            columns={columns}
+            ref={x => (this.checkboxTable = x)}
+            data={this.props.Appdata}
+            columns={this.props.Appcolumns}
             defaultPageSize={10}
-            {...checkboxProps}
+            toggleSelection={this.props.toggleAppSelection}
+            isSelected={this.props.isAppSelected}
+            selectType={this.props.selectType}
+            selectAll={this.props.selectAllApps}
+            toggleAll={this.props.toggleAllapps}
           />
-        ) : (
-          <div />
-        )}
 
-        <br />
+        {/* <br />
         <button onClick={logSelection}>
           <h3>Console Log It </h3>
-        </button>
+        </button> */}
       </div>
     );
   }
 }
 
-const mapStatetoProps = state => ({
-  appz: state.hostnames.itemz
-});
-
-export default connect(mapStatetoProps, { fetchAppz })(AppBoxer);
+export default AppBoxer;

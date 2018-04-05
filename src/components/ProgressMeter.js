@@ -37,6 +37,19 @@ class ProgressMeter extends Component {
         left: "10.5%",
         position: "absolute"
       },
+      leftNum: {
+        fontSize: 45,
+        position: "absolute",
+        top: "52%",
+        left: "85%",
+        textAlign: "center"
+      },
+      span2: {
+        fontSize: 18,
+        top: "68%",
+        left: "83.5%",
+        position: "absolute"
+      },
       title: {
         backgroundColor: 'red',
         color: 'white'
@@ -53,6 +66,7 @@ class ProgressMeter extends Component {
         onRequestClose={this.props.handleClose}
         titleStyle={styles.title}
         passedcfes={this.props.passedcfes}
+        passedappz={this.props.passedappz}
       >
         <br/>
         <div className='row'>
@@ -61,7 +75,8 @@ class ProgressMeter extends Component {
             <span>{this.props.passedcfes}</span>
           </div>
           <div className='col-lg-6'>
-            Selected Apps:
+            Selected Apps:<br/>
+            <span>{this.props.passedappz}</span>
           </div>
         </div>
 
@@ -89,11 +104,18 @@ class ProgressMeter extends Component {
           </div>
 
           <div className="col-lg-3">
+
             <CircularProgress
               // mode='determinate'
               size={160}
               thickness={5}
             />
+
+            <div style={styles.leftNum}>{this.props.passedappz.length}</div>
+
+            <br />
+
+            <span style={styles.span2}>App(s)</span>
 
             {/* <div style={styles.rightNum}> 4 </div> */}
           </div>
