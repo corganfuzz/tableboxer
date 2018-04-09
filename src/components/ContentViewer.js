@@ -3,7 +3,10 @@ import DeviceBoxer from "./DeviceBoxer";
 import AppBoxer from './AppBoxer'
 import Kard from "./Kard";
 import ProgressMeter from './ProgressMeter';
-// import _ from 'lodash';
+import { Toolbar, ToolbarGroup,
+  // ToolbarSeparator, ToolbarTitle
+ } from "material-ui/Toolbar";
+import Toggle from "material-ui/Toggle";
 
 import { connect } from 'react-redux';
 import { fetchHosts } from '../actions/hostnameActions';
@@ -13,6 +16,10 @@ const styles = {
   center: {
     margin: 20,
     padding: 20
+  },
+  label: {
+    color: '#8b8b8b',
+    fontSize: 16
   }
 };
 
@@ -288,6 +295,25 @@ class ContentViewer extends Component {
         </div>
 
         <br />
+
+        <div className="row">
+          <div className="col-xs-12">
+            <Toolbar>
+              <ToolbarGroup>
+                <Toggle
+                  label="Filter by CFE"
+                  labelPosition="right"
+                  labelStyle={styles.label}
+                />
+                {/* <ToolbarTitle text="Filter by CFE" /> */}
+                {/* <ToolbarSeparator /> */}
+              </ToolbarGroup>
+
+            </Toolbar>
+          </div>
+          <div className="col-xs-6"></div>
+        </div>
+
 
         <div className="row">
           <div className="col-xs-6">

@@ -1,12 +1,14 @@
-import React from "react";
+import React, {Component} from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
-const DeviceBoxer = (props) => {
-  console.log('props', props);
+class DeviceBoxer extends Component {
+
+  render () {
+    console.log('props', this.props);
     return (
       <div>
           <CheckboxTable
@@ -14,20 +16,20 @@ const DeviceBoxer = (props) => {
             noDataText="Value not found"
             filterable
             ref={r => (this.checkboxTable = r)}
-            data={props.data}
-            columns={props.columns}
+            data={this.props.data}
+            columns={this.props.columns}
             defaultPageSize={10}
-            toggleSelection={props.toggleSelection}
-            isSelected={props.isSelected}
-            selectType={props.selectType}
-            selectAll={props.selectAll}
-            toggleAll={props.toggleAll}
+            toggleSelection={this.props.toggleSelection}
+            isSelected={this.props.isSelected}
+            selectType={this.props.selectType}
+            selectAll={this.props.selectAll}
+            toggleAll={this.props.toggleAll}
             // {...checkboxProps}
             // onClick={logSelection}
             // logSelection={this.props.logSelection}
           />
-      </div>
-    );
+      </div>    )
+  }
 }
 
 export default DeviceBoxer;
