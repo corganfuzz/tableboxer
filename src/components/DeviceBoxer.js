@@ -5,7 +5,8 @@ import checkboxHOC from "react-table/lib/hoc/selectTable";
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
-const BoxerNew = (props) => {
+const DeviceBoxer = (props) => {
+  console.log('props', props);
     return (
       <div>
           <CheckboxTable
@@ -29,4 +30,4 @@ const BoxerNew = (props) => {
     );
 }
 
-export default BoxerNew;
+export default DeviceBoxer;

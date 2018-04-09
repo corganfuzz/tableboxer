@@ -6,14 +6,15 @@ import checkboxHOC from "react-table/lib/hoc/selectTable";
 const CheckboxTable = checkboxHOC(ReactTable);
 
 const AppBoxer = (props) => {
+
     return (
       <div>
           <CheckboxTable
             keyField="stackDefId"
             filterable
-            noDataText="Value not found"
+            noDataText="Select a device..."
             ref={x => (this.checkboxTable = x)}
-            data={props.Appdata}
+            data={[]}
             columns={props.Appcolumns}
             defaultPageSize={10}
             toggleSelection={props.toggleAppSelection}

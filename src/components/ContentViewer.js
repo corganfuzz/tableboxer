@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BoxerNew from "./BoxerNew";
+import DeviceBoxer from "./DeviceBoxer";
 import AppBoxer from './AppBoxer'
 import Kard from "./Kard";
 import ProgressMeter from './ProgressMeter';
@@ -294,7 +294,7 @@ class ContentViewer extends Component {
         {
           this.props.hostnames.length > 0
           ?
-            <BoxerNew
+            <DeviceBoxer
               // selectionx={this.handleChildFunc}
               // cfecallback={this.cfeCallback}
               data={hostitems}
