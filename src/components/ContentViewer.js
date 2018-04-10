@@ -38,7 +38,9 @@ class ContentViewer extends Component {
 
       Appselection: [],
       selectAllApps: false,
-      appz: []
+      appz: [],
+
+      comptAppsId: []
 
     }
   }
@@ -52,7 +54,10 @@ class ContentViewer extends Component {
 
     this.props.fetchHosts();
     this.props.fetchAppz();
+
   }
+
+
 
   getData(hostitems) {
     const data = hostitems.map(item => {
@@ -199,13 +204,13 @@ class ContentViewer extends Component {
       .filter(hostname => {
         return selectedDeviceIds.includes(hostname.deviceId);
       })
-      .map(device => device.deviceName);
+          .map(device => device.deviceName);
 
     const selectedAppz = appz
       .filter(appz => {
         return selectedAppIds.includes(appz.stackDefId);
       })
-      .map(app => app.stackDefName);
+          .map(app => app.stackDefName);
 
       // this.props.cfecallback(selectedDevices)
 
@@ -231,9 +236,9 @@ class ContentViewer extends Component {
     })
   }
 
-  handleChildFunc = (arr, evt) => {
-    console.log('here', arr)
-  }
+  // handleChildFunc = (arr, evt) => {
+  //   console.log('here', arr)
+  // }
 
 
   render() {
@@ -277,7 +282,8 @@ class ContentViewer extends Component {
       selectType: "checkbox"
     };
 
-    // console.log('after', this.state.cfes);
+    const pselection = this.state.selection
+
 
     return (
       <div style={styles.center}>
@@ -339,6 +345,7 @@ class ContentViewer extends Component {
               Appdata={appz}
               Appcolumns={Appcolumns}
               {...AppCheckboxProps}
+              selection={pselection}
             />
           :<div></div>
         }
@@ -355,8 +362,8 @@ class ContentViewer extends Component {
             passedcfes={this.state.cfes}
             passedappz={this.state.appz}
           />
-: <div></div>
-}
+          : <div></div>
+        }
       </div>
     );
   }

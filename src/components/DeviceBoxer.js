@@ -3,12 +3,13 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 
+
 const CheckboxTable = checkboxHOC(ReactTable);
 
 class DeviceBoxer extends Component {
 
   render () {
-    console.log('props', this.props);
+
     return (
       <div>
           <CheckboxTable
