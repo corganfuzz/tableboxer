@@ -23,6 +23,10 @@ const styles = {
   }
 };
 
+
+
+
+
 class ContentViewer extends Component {
   constructor (props) {
     super(props);
@@ -40,7 +44,8 @@ class ContentViewer extends Component {
       selectAllApps: false,
       appz: [],
 
-      comptAppsId: []
+      comptAppsId: [],
+      test:[]
 
     }
   }
@@ -242,6 +247,30 @@ class ContentViewer extends Component {
 
 
   render() {
+
+    const MyCheckbox = (props) => {
+      return (
+        <input
+          type={props.selectType || 'checkbox'}
+          checked={props.checked}
+          onClick={(e) => {
+            const { shiftKey } = e;
+            e.stopPropagation();
+            props.onClick(props.id, shiftKey, props.row);
+            const test = JSON.parse("[" + props.id + "]")
+            console.log('here', JSON.parse("[" + props.id + "]"))
+            const joined = this.state.test.concat(test)
+            this.setState({
+              test: joined
+            })
+            console.log('state', this.state.test)
+            // console.log(this.state.selection)
+          }}
+          onChange={() => { }}
+        />
+      )
+    }
+
     //===>FROM REDUX
     const appz = this.props.appz
     const hostitems = this.props.hostnames;
@@ -270,6 +299,7 @@ class ContentViewer extends Component {
       selectAll,
       isSelected,
       // logSelection,
+      SelectInputComponent: MyCheckbox,
       selectType: "checkbox"
     };
 
@@ -282,7 +312,7 @@ class ContentViewer extends Component {
       selectType: "checkbox"
     };
 
-    const pselection = this.state.selection
+    // const pselection = this.state.selection
 
 
     return (
@@ -345,7 +375,7 @@ class ContentViewer extends Component {
               Appdata={appz}
               Appcolumns={Appcolumns}
               {...AppCheckboxProps}
-              selection={pselection}
+              // selection={pselection}
             />
           :<div></div>
         }

@@ -18,7 +18,27 @@ class AppBoxer extends Component {
     }
   }
 
+  componentWillMount () {
+
+    const selectx = this.state.selectx
+
+    this.props.fetchComptAppz(selectx)
+
+    // const selected = this.props.selection
+    // this.props.fetchComptAppz(this.state.selectx)
+    // const selectx = this.state.selectx
+    //
+    // if(this.state.selectx.length > 0){
+    //   this.props.fetchComptAppz(selectx)
+    //   // console.log ('dude', this.props.fetchComptAppz(selectx))
+    // }
+
+  }
+
   componentWillReceiveProps(nextProps) {
+
+    // console.log( 'something changed')
+    // this.props.fetchComptAppz()
 
     const passedSelection = nextProps.selection
 
@@ -26,25 +46,59 @@ class AppBoxer extends Component {
       selectx: passedSelection
     })
 
+    // const selectx = this.state.selectx
+    // //
+    // // console.log('here', selectx)
+    // //
+    // if(selectx.length > 0){
+    //   this.props.fetchComptAppz(selectx)
+    //
+    //   // console.log ('dude', this.props.fetchComptAppz(selectx))
+    // }
+
+    //
+    //  if(this.state.selectx.length > 0){
+    //
+    //   const bro = this.props.fetchComptAppz(selectx)
+    //
+    // // this.setState({
+    // //   passedUri: bro
+    // // })
+    // //
+    //   console.log(bro)
+    //
+    // }
   }
 
 
-  // componentWillMount () {
-  //   // const selected = this.props.selection
-  //   // this.props.fetchComptAppz(this.state.selectx)
-  // }
+
 
 
   render () {
 
-    const selectx = this.state.selectx
+    // const selectx = this.state.selectx
+    //
+    // // console.log('here', selectx)
+    //
+    // if(selectx.length > 0){
+    //   this.props.fetchComptAppz(selectx)
+    //
+    //   // console.log ('dude', this.props.fetchComptAppz(selectx))
+    // }
 
-    if(this.state.selectx.length > 0){
-      this.props.fetchComptAppz(selectx)
-    }
+    // const selectx = this.state.selectx
+    // //
+    // // // const step = this.props.compatapps
+    // // // console.log(step)
+    // //
+    // if(this.state.selectx.length > 0){
+    //   const bro = this.props.fetchComptAppz(selectx)
+    //   // console.log ('dude', this.props.fetchComptAppz(selectx))
+    //   console.log(bro)
+    // }
 
-    console.log (this.state.selectx)
-    // console.log(this.props.compatapps)
+    // console.log (this.state.selectx)
+
 
     return (
       <div>
@@ -72,9 +126,16 @@ const mapStatetoProps = state => ({
 })
 
 // function mapStatetoProps(state) {
+//   // const selectx = this.state.selectx
 //   const props = {compatapps: state.hostnames.selectionApps}
-//   console.log(props)
+//   console.log('mapstatetoProps', props)
 //   return props;
+// }
+
+// const mapStatetoProps = state => {
+//   const props = {compatapps: state.hostnames.selectionApps}
+//     console.log('mapstatetoProps', props)
+//     return props;
 // }
 
 

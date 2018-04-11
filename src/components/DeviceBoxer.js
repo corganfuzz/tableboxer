@@ -23,6 +23,7 @@ class DeviceBoxer extends Component {
             toggleSelection={this.props.toggleSelection}
             isSelected={this.props.isSelected}
             selectType={this.props.selectType}
+            SelectInputComponent={this.props.SelectInputComponent}
             selectAll={this.props.selectAll}
             toggleAll={this.props.toggleAll}
             // {...checkboxProps}
