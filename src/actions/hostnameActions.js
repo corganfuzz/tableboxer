@@ -1,4 +1,7 @@
-import { FETCH_HOSTNAMES, FETCH_APPZ, FETCH_COMPT_APPZ } from './Types';
+import {  FETCH_HOSTNAMES,
+          FETCH_APPZ,
+          // FETCH_COMPT_APPZ 
+} from './Types';
 // import hostnames from '../device_data';
 // import appz from '../apps_data';
 
@@ -24,16 +27,16 @@ export const fetchAppz = () => dispatch => {
   );
 };
 
-export const fetchComptAppz = (selectedData) => dispatch => {
-
-  const URL = "https://johnsaidlongernameisbetter.azurewebsites.net/get_compat_apps/?list=[" + selectedData.join() + "]";
-
-  fetch( URL)
-    .then(res => res.json())
-      .then(compatApps =>
-        dispatch({
-            type: FETCH_COMPT_APPZ,
-            payload: compatApps
-        })
-      );
-};
+// export const fetchComptAppz = (selectedData) => dispatch => {
+//
+//   const URL = "https://johnsaidlongernameisbetter.azurewebsites.net/get_compat_apps/?list=[" + selectedData.join() + "]";
+//
+//   fetch( URL)
+//     .then(res => res.json())
+//       .then(compatApps =>
+//         dispatch({
+//             type: FETCH_COMPT_APPZ,
+//             payload: compatApps
+//         })
+//       );
+// };

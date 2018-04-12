@@ -3,8 +3,8 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 
-import { connect } from 'react-redux';
-import { fetchComptAppz } from '../actions/hostnameActions';
+// import { connect } from 'react-redux';
+// import { fetchComptAppz } from '../actions/hostnameActions';
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
@@ -20,9 +20,9 @@ class AppBoxer extends Component {
 
   componentWillMount () {
 
-    const selectx = this.state.selectx
+    // const selectx = this.state.selectx
 
-    this.props.fetchComptAppz(selectx)
+    // this.props.fetchComptAppz(selectx)
 
     // const selected = this.props.selection
     // this.props.fetchComptAppz(this.state.selectx)
@@ -39,12 +39,20 @@ class AppBoxer extends Component {
 
     // console.log( 'something changed')
     // this.props.fetchComptAppz()
+    //
+    // console.log ('next', nextProps)
 
-    const passedSelection = nextProps.selection
+    const passedtest = nextProps.test
 
+    // console.log(passedtest)
+
+    // const passedSelection = nextProps.selection
+    //
     this.setState({
-      selectx: passedSelection
+      selectx: passedtest
     })
+
+
 
     // const selectx = this.state.selectx
     // //
@@ -121,9 +129,9 @@ class AppBoxer extends Component {
   }
 }
 
-const mapStatetoProps = state => ({
-  compatapps: state.hostnames.selectionApps
-})
+// const mapStatetoProps = state => ({
+//   compatapps: state.hostnames.selectionApps
+// })
 
 // function mapStatetoProps(state) {
 //   // const selectx = this.state.selectx
@@ -139,7 +147,7 @@ const mapStatetoProps = state => ({
 // }
 
 
-export default connect(mapStatetoProps, { fetchComptAppz })(AppBoxer);
+export default AppBoxer;
 
 // const AppBoxer = (props) => {
 //

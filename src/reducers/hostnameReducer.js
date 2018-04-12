@@ -1,9 +1,12 @@
-import { FETCH_HOSTNAMES, FETCH_APPZ, FETCH_COMPT_APPZ } from "../actions/Types";
+import { FETCH_HOSTNAMES,
+         FETCH_APPZ,
+         // FETCH_COMPT_APPZ
+        } from "../actions/Types";
 
 const initialState = {
   items: [],
   itemz: [],
-  selectionApps: []
+  // selectionApps: []
 };
 
 export default function(state = initialState, action) {
@@ -18,11 +21,11 @@ export default function(state = initialState, action) {
         ...state,
         itemz: action.payload
       };
-    case FETCH_COMPT_APPZ:
-      return {
-        ...state,
-        selectionApps: action.payload
-      };
+    // case FETCH_COMPT_APPZ:
+    //   return {
+    //     ...state,
+    //     selectionApps: action.payload
+    //   };
     default:
       return state;
   }

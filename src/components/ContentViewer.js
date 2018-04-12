@@ -11,6 +11,8 @@ import Toggle from "material-ui/Toggle";
 import { connect } from 'react-redux';
 import { fetchHosts } from '../actions/hostnameActions';
 import { fetchAppz } from "../actions/hostnameActions";
+import axios from 'axios';
+// import { fetchComptAppz } from '../actions/hostnameActions';
 
 const styles = {
   center: {
@@ -24,6 +26,7 @@ const styles = {
 };
 
 
+const BASE_URL = "https://johnsaidlongernameisbetter.azurewebsites.net/get_compat_apps/?list=";
 
 
 
@@ -45,7 +48,9 @@ class ContentViewer extends Component {
       appz: [],
 
       comptAppsId: [],
-      test:[]
+      test:[],
+      value: []
+
 
     }
   }
@@ -60,9 +65,11 @@ class ContentViewer extends Component {
     this.props.fetchHosts();
     this.props.fetchAppz();
 
+    // if (this.state.test.length > 0) {
+    //
+    //     this.props.fetchComptAppz(this.state.test);
+    // }
   }
-
-
 
   getData(hostitems) {
     const data = hostitems.map(item => {
@@ -241,9 +248,48 @@ class ContentViewer extends Component {
     })
   }
 
+  //   ?list=[" + selectedData.join() + "];
+
+
+  handleClicker = (joined) => {
+
+    // x = this.state.test
+
+    // const self = this;
+
+
+      axios
+        .get(BASE_URL + "[" + joined + "]")
+          .then(response => {
+            const yo = response.data;
+            //
+            // console.log ('yo', yo)
+
+            this.setState({
+              value: yo
+            });
+                // console.log('yo', this.state.value)
+          })
+
+        .catch( function(error){
+          console.log(error);
+        });
+
+
+  }
+
   // handleChildFunc = (arr, evt) => {
   //   console.log('here', arr)
   // }
+  //
+  // handleChange (e) {
+  //       var myInput = this.state.test;
+  //       this.setState({
+  //         value: myInput
+  //       })
+  //       this.props.fetchComptAppz(this.state.test, myInput);
+  //
+  //     }
 
 
   render() {
@@ -252,24 +298,50 @@ class ContentViewer extends Component {
       return (
         <input
           type={props.selectType || 'checkbox'}
+
           checked={props.checked}
+
           onClick={(e) => {
+
             const { shiftKey } = e;
+
             e.stopPropagation();
+
             props.onClick(props.id, shiftKey, props.row);
+
+            // this.state.test.concat(props.row);
+
+            // console.log(this.state.test)
+
+            // console.log(props.row)
+
             const test = JSON.parse("[" + props.id + "]")
-            console.log('here', JSON.parse("[" + props.id + "]"))
+
+            // console.log('here', test)
+
             const joined = this.state.test.concat(test)
+            // console.log('joined', joined);
+
             this.setState({
               test: joined
             })
-            console.log('state', this.state.test)
-            // console.log(this.state.selection)
+            // console.log ('state', this.state.test)
+
+            // console.log(props.checked)
+
+              this.handleClicker(joined);
+
+            // console.log('value', this.state.value)
           }}
-          onChange={() => { }}
+          onChange={() => {}}
         />
       )
     }
+
+    // const compat = this.props.compatapps
+    // console.log('bro', compat)
+    // this.props.fetchComptAppz(this.state.test); INFINITE LOOP
+    // console.log(this.props.compatapps)
 
     //===>FROM REDUX
     const appz = this.props.appz
@@ -312,7 +384,12 @@ class ContentViewer extends Component {
       selectType: "checkbox"
     };
 
+    // console.log('state', this.state.test)
+    const test = this.state.test
     // const pselection = this.state.selection
+
+    // console.log('value', this.state.value)
+
 
 
     return (
@@ -375,6 +452,7 @@ class ContentViewer extends Component {
               Appdata={appz}
               Appcolumns={Appcolumns}
               {...AppCheckboxProps}
+              test={test}
               // selection={pselection}
             />
           :<div></div>
@@ -401,7 +479,8 @@ class ContentViewer extends Component {
 
 const mapStatetoProps = state => ({
   hostnames: state.hostnames.items,
-  appz: state.hostnames.itemz
+  appz: state.hostnames.itemz,
+  // compatapps: state.hostnames.selectionApps
 });
 
 export default connect(mapStatetoProps, { fetchHosts, fetchAppz })(ContentViewer);
