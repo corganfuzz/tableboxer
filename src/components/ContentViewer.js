@@ -122,12 +122,13 @@ class ContentViewer extends Component {
     } else {
       selection.push(key);
     }
+
     this.setState({
       selection: selection,
-      // row: row
     });
+    console.log('up', selection)
 
-    // console.log(this.state.selection)
+    this.handleClicker(selection)
   };
 
   toggleAppSelection = (key, shift, row) => {
@@ -235,6 +236,9 @@ class ContentViewer extends Component {
 
     console.log(selectedDevices);
     console.log(selectedAppz)
+
+    // console.log('joined wannabe', selectedDeviceIds)
+    // console.log('propsrow wannabe', hostnames )
   };
 
   //====>LETS TRY THIS
@@ -317,53 +321,108 @@ class ContentViewer extends Component {
 
   render() {
 
-    const MyCheckbox = (props) => {
-      return (
-        <input
-          type={props.selectType || 'checkbox'}
-
-          checked={props.checked}
-
-          onClick={(e) => {
-
-            const { shiftKey } = e;
-
-            e.stopPropagation();
-            //
-            props.onClick(props.id, shiftKey, props.row);
-
-
-            // this.state.test.concat(props.row);
-
-            // console.log(this.state.test)
-
-            // console.log(props.row)
-
-            const test = JSON.parse("[" + props.id+ "]")
-
-            // console.log('here', test)
-
-            const joined = this.state.test.concat(test)
-
-            // console.log('joined', joined);
-
-
-            // console.log ('state', this.state.test)
-
-            // console.log(props.checked)
-
-              this.handleClicker(joined);
-
-              this.setState({
-                test: joined
-              })
-
-
-          }}
-          onChange={() => {}}
-        />
-      )
-    }
+    // const MyCheckbox = (props) => {
+    //   return (
+    //     <input
+    //       type={props.selectType || 'checkbox'}
+    //
+    //       checked={props.checked}
+    //
+    //       onClick={(e) => {
+    //
+    //         const { shiftKey } = e;
+    //
+    //         e.stopPropagation();
+    //
+    //         props.onClick(props.id, shiftKey, props.row);
+    //
+    //         const test = JSON.parse("[" + props.id+ "]") // to convert to array
+    //
+    //         const joined = this.state.test.concat(test)
+    //
+    //           this.setState({
+    //             test: joined
+    //           })
+    //
+    //           console.log('joined', joined)
+    //
+    //             this.handleClicker(joined);
+    //
+    //         // console.log('propers', props)
+    //
+    //
+    //
+    //         // console.log ('state', this.state.test)
+    //
+    //           // console.log("joined", joined);
+    //
+    //           // var joined = []
+    //           //
+    //           // if (props.checked === false) {
+    //           //
+    //           //   joined = this.state.test.concat(test) // to have multiple values inside array
+    //           //
+    //           //   this.handleClicker(joined);
+    //           //
+    //           //   this.setState({
+    //           //     test: joined
+    //           //   })
+    //           //
+    //           //   console.log('joined', joined);
+    //           //
+    //           // } else {
+    //           //
+    //           //     // function remove(array, element) {
+    //           //     //   return array.filter(e => e !== element)
+    //           //     // }
+    //           //
+    //           //     joined = joined.filter(a => a !== props.id)
+    //           //
+    //           //     // const result = remove(joined, props.id)
+    //           //     // const result = joined.slice(0)
+    //           //
+    //           //     // for (let i =0; i<joined.length; i++) {
+    //           //     //
+    //           //     //   let newp = joined[i];
+    //           //     //
+    //           //     //   console.log('new', newp)
+    //           //     //
+    //           //     // }
+    //           //
+    //           //     // let giveId = joined.map( x => joined[x])
+    //           //
+    //           //     // const selectedA = props.id
+    //           //     //
+    //           //     // console.log('give', selectedA)
+    //           //
+    //           //     //
+    //           //     console.log('result', joined)
+    //           //
+    //           //   }
+    //
+    //             //   else {
+    //             //
+    //             // }
+    //
+    //             // const selectedDs =
+    //             //   .filter(joint => {
+    //             //     return joined.includes();
+    //             //   })
+    //             //   .map(deviceId => deviceId.id)
+    //             //
+    //             //   console.log('selectedDs', selectedDs)
+    //             //
+    //
+    //
+    //
+    //
+    //       }}
+    //       onChange={() => {
+    //
+    //       }}
+    //     />
+    //   )
+    // }
 
     // const compat = this.props.compatapps
     // console.log('bro', compat)
@@ -398,7 +457,7 @@ class ContentViewer extends Component {
       selectAll,
       isSelected,
       // logSelection,
-      SelectInputComponent: MyCheckbox,
+      // SelectInputComponent: MyCheckbox,
       selectType: "checkbox"
     };
 

@@ -13,7 +13,7 @@ class AppBoxer extends Component {
     super (props);
 
     this.state = {
-      selectx: [],
+      selectx: [], //if you dont need it erase it
       passedUri: []
     }
   }
@@ -111,7 +111,7 @@ class AppBoxer extends Component {
           <CheckboxTable
             keyField="stackDefId"
             filterable
-            noDataText="Select a device..."
+            noDataText="No Compatible Applications"
             ref={x => (this.checkboxTable = x)}
             data={this.state.passedUri}
             columns={this.props.Appcolumns}
