@@ -87,6 +87,7 @@ class ContentViewer extends Component {
     // console.log (data);
 
     if (data.length > 0) {
+
       const columns = [];
 
       const sample = data[0];
@@ -104,10 +105,11 @@ class ContentViewer extends Component {
     }
   }
 
+
 // ---> toggleSelection for both tables
 
   toggleSelection = (key, shift, row) => {
-        // this.setState({loading:false})
+
     let selection = [...this.state.selection];
 
     const keyIndex = selection.indexOf(key);
@@ -124,6 +126,8 @@ class ContentViewer extends Component {
       selection: selection,
       // row: row
     });
+
+    // console.log(this.state.selection)
   };
 
   toggleAppSelection = (key, shift, row) => {
@@ -233,30 +237,29 @@ class ContentViewer extends Component {
     console.log(selectedAppz)
   };
 
+  //====>LETS TRY THIS
 
-  handleOpen = () => {
-    this.setState({
-      open: true
-    })
-
-    this.logSelection();
-  }
-
-  handleClose = () => {
-    this.setState({
-      open: false
-    })
-  }
-
-  //   ?list=[" + selectedData.join() + "];
-
+  // logIds = (selectedDids) => {
+  //
+  //   selectedDids = this.state.selection
+  //
+  //   const { hostnames } = this.props;
+  //
+  //   const selectedDs = hostnames
+  //     .filter(hostname => {
+  //       return selectedDids.includes(hostname.deviceId);
+  //     })
+  //       .map(device => device.deviceId)
+  //
+  //
+  //   this.setState({ selectedDs})
+  // }
 
   handleClicker = (joined) => {
 
     // x = this.state.test
 
     // const self = this;
-
 
       axios
         .get(BASE_URL + "[" + joined + "]")
@@ -275,8 +278,28 @@ class ContentViewer extends Component {
           console.log(error);
         });
 
-
   }
+
+
+  handleOpen = () => {
+    this.setState({
+      open: true
+    })
+
+    this.logSelection();
+    // this.logIds();
+  }
+
+  handleClose = () => {
+    this.setState({
+      open: false
+    })
+  }
+
+  //   ?list=[" + selectedData.join() + "];
+
+
+
 
   // handleChildFunc = (arr, evt) => {
   //   console.log('here', arr)
@@ -306,8 +329,9 @@ class ContentViewer extends Component {
             const { shiftKey } = e;
 
             e.stopPropagation();
-
+            //
             props.onClick(props.id, shiftKey, props.row);
+
 
             // this.state.test.concat(props.row);
 
@@ -315,23 +339,26 @@ class ContentViewer extends Component {
 
             // console.log(props.row)
 
-            const test = JSON.parse("[" + props.id + "]")
+            const test = JSON.parse("[" + props.id+ "]")
 
             // console.log('here', test)
 
             const joined = this.state.test.concat(test)
+
             // console.log('joined', joined);
 
-            this.setState({
-              test: joined
-            })
+
             // console.log ('state', this.state.test)
 
             // console.log(props.checked)
 
               this.handleClicker(joined);
 
-            // console.log('value', this.state.value)
+              this.setState({
+                test: joined
+              })
+
+
           }}
           onChange={() => {}}
         />
@@ -385,10 +412,13 @@ class ContentViewer extends Component {
     };
 
     // console.log('state', this.state.test)
-    const test = this.state.test
+    // const test = this.state.test
+    const value = this.state.value
     // const pselection = this.state.selection
 
     // console.log('value', this.state.value)
+    //
+    // console.log('test', this.state.test)
 
 
 
@@ -452,7 +482,8 @@ class ContentViewer extends Component {
               Appdata={appz}
               Appcolumns={Appcolumns}
               {...AppCheckboxProps}
-              test={test}
+              value={value}
+              // test={test}
               // selection={pselection}
             />
           :<div></div>

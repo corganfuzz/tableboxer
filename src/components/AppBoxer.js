@@ -14,7 +14,7 @@ class AppBoxer extends Component {
 
     this.state = {
       selectx: [],
-      passedUri : []
+      passedUri: []
     }
   }
 
@@ -42,17 +42,15 @@ class AppBoxer extends Component {
     //
     // console.log ('next', nextProps)
 
-    const passedtest = nextProps.test
+    const passedtest = nextProps.value
 
     // console.log(passedtest)
 
     // const passedSelection = nextProps.selection
-    //
+
     this.setState({
-      selectx: passedtest
+      passedUri: passedtest
     })
-
-
 
     // const selectx = this.state.selectx
     // //
@@ -105,7 +103,7 @@ class AppBoxer extends Component {
     //   console.log(bro)
     // }
 
-    // console.log (this.state.selectx)
+    console.log (this.state.selectx)
 
 
     return (
