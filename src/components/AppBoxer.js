@@ -13,7 +13,7 @@ class AppBoxer extends Component {
     super (props);
 
     this.state = {
-      selectx: [], //if you dont need it erase it
+      // selectx: [], //if you dont need it erase it
       passedUri: []
     }
   }
@@ -103,7 +103,7 @@ class AppBoxer extends Component {
     //   console.log(bro)
     // }
 
-    console.log (this.state.selectx)
+    // console.log (this.state.selectx)
 
 
     return (

@@ -3,16 +3,14 @@ import DeviceBoxer from "./DeviceBoxer";
 import AppBoxer from './AppBoxer'
 import Kard from "./Kard";
 import ProgressMeter from './ProgressMeter';
-import { Toolbar, ToolbarGroup,
-  // ToolbarSeparator, ToolbarTitle
- } from "material-ui/Toolbar";
+import { Toolbar, ToolbarGroup} from "material-ui/Toolbar";
 import Toggle from "material-ui/Toggle";
 
 import { connect } from 'react-redux';
 import { fetchHosts } from '../actions/hostnameActions';
 import { fetchAppz } from "../actions/hostnameActions";
-import axios from 'axios';
-// import { fetchComptAppz } from '../actions/hostnameActions';
+// import axios from 'axios';
+import { fetchComptAppz } from '../actions/hostnameActions';
 
 const styles = {
   center: {
@@ -26,7 +24,7 @@ const styles = {
 };
 
 
-const BASE_URL = "https://johnsaidlongernameisbetter.azurewebsites.net/get_compat_apps/?list=";
+// const BASE_URL = "https://johnsaidlongernameisbetter.azurewebsites.net/get_compat_apps/?list=";
 
 
 
@@ -60,15 +58,25 @@ class ContentViewer extends Component {
     this.filtering = true;
   }
 
+
   componentWillMount() {
 
     this.props.fetchHosts();
     this.props.fetchAppz();
 
-    // if (this.state.test.length > 0) {
+
+    // if (this.state.selection.length > 0) {
     //
-    //     this.props.fetchComptAppz(this.state.test);
+    //     this.props.fetchComptAppz();
+    //
     // }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.compatapps) {
+      this.setState({ value: nextProps.compatapps})
+    }
+    // console.log('newpropers', nextProps)
   }
 
   getData(hostitems) {
@@ -128,7 +136,9 @@ class ContentViewer extends Component {
     });
     console.log('up', selection)
 
-    this.handleClicker(selection)
+    this.props.fetchComptAppz(selection);
+
+
   };
 
   toggleAppSelection = (key, shift, row) => {
@@ -236,53 +246,32 @@ class ContentViewer extends Component {
 
     console.log(selectedDevices);
     console.log(selectedAppz)
-
-    // console.log('joined wannabe', selectedDeviceIds)
-    // console.log('propsrow wannabe', hostnames )
   };
 
-  //====>LETS TRY THIS
-
-  // logIds = (selectedDids) => {
+  // handleClicker = (joined) => {
   //
-  //   selectedDids = this.state.selection
+  //   // x = this.state.test
   //
-  //   const { hostnames } = this.props;
+  //   // const self = this;
   //
-  //   const selectedDs = hostnames
-  //     .filter(hostname => {
-  //       return selectedDids.includes(hostname.deviceId);
-  //     })
-  //       .map(device => device.deviceId)
+  //     axios
+  //       .get(BASE_URL + "[" + joined + "]")
+  //         .then(response => {
+  //           const yo = response.data;
+  //           //
+  //           // console.log ('yo', yo)
   //
+  //           this.setState({
+  //             value: yo
+  //           });
+  //               // console.log('yo', this.state.value)
+  //         })
   //
-  //   this.setState({ selectedDs})
+  //       .catch( function(error){
+  //         console.log(error);
+  //       });
+  //
   // }
-
-  handleClicker = (joined) => {
-
-    // x = this.state.test
-
-    // const self = this;
-
-      axios
-        .get(BASE_URL + "[" + joined + "]")
-          .then(response => {
-            const yo = response.data;
-            //
-            // console.log ('yo', yo)
-
-            this.setState({
-              value: yo
-            });
-                // console.log('yo', this.state.value)
-          })
-
-        .catch( function(error){
-          console.log(error);
-        });
-
-  }
 
 
   handleOpen = () => {
@@ -570,7 +559,7 @@ class ContentViewer extends Component {
 const mapStatetoProps = state => ({
   hostnames: state.hostnames.items,
   appz: state.hostnames.itemz,
-  // compatapps: state.hostnames.selectionApps
+  compatapps: state.hostnames.selectionApps
 });
 
-export default connect(mapStatetoProps, { fetchHosts, fetchAppz })(ContentViewer);
+export default connect(mapStatetoProps, { fetchHosts, fetchAppz, fetchComptAppz })(ContentViewer);
