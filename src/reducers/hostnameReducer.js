@@ -2,7 +2,6 @@ import { FETCH_HOSTNAMES,
          FETCH_APPZ,
          FETCH_COMPT_APPZ,
          FETCH_COMPT_HOSTS
-         // FETCH_HOSTNAMES_BEGIN
         } from "../actions/Types";
 
 const initialState = {
@@ -10,16 +9,10 @@ const initialState = {
   itemz: [],
   selectionApps: [],
   selectionDevs: []
-  // noItems: []
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    // case FETCH_HOSTNAMES_BEGIN:
-    //   return {
-    //     ...state,
-    //     noItems: []
-    //   };
     case FETCH_HOSTNAMES:
       return {
         ...state,

@@ -11,7 +11,7 @@ import {
   fetchHosts,
   fetchAppz,
   fetchComptAppz,
-  // fetchComptDevs
+  fetchComptDevs
 } from "../actions/hostnameActions";
 
 
@@ -47,14 +47,16 @@ class ContentViewer extends Component {
       selection: [],
       selectAll: false,
       cfes: [],
+      value: [],
 
       Appselection: [],
       selectAllApps: false,
       appz: [],
+      Appvalue: [],
 
 
       test:[],
-      value: [],
+
       ichecked: false,
 
 
@@ -84,10 +86,11 @@ class ContentViewer extends Component {
   componentWillReceiveProps (nextProps) {
     if (nextProps.compatapps) {
       this.setState({
-        value: nextProps.compatapps
+        value: nextProps.compatapps,
+        // Appvalue: nextProps.compatdevs
       })
     }
-    console.log('newpropers', nextProps)
+    // console.log('newpropers', nextProps)
   }
 
   getData = (hostitems) => {
@@ -170,9 +173,12 @@ class ContentViewer extends Component {
     }
     this.setState({
       Appselection: Appselection,
-      // loading: false
-      // row: row
     });
+
+    //====> REDUX
+    this.props.fetchComptDevs(Appselection);
+
+
   };
 
 // ---> end
@@ -248,7 +254,7 @@ class ContentViewer extends Component {
 
     const selectedAppz = appz
       .filter(appz => {
-        return selectedAppIds.includes(appz.stackDefId);
+        return selectedAppIds.includes(appz.versionId);
       })
           .map(app => app.stackDefName);
 
@@ -318,26 +324,29 @@ class ContentViewer extends Component {
     // this.props.fetchComptAppz(this.state.test); INFINITE LOOP
 
     //===>FROM REDUX
+    const hostitems = this.props.hostnames
     const appz = this.props.appz
-    let hostitems = this.props.hostnames
 
-    //===>SEPARATOR
+    // console.log ('appzzz', appz)
+
+    //===>ACTUAL DATA
     const data = this.getData(hostitems);
     const Appdata = this.getData(appz);
-    // console.log(data)
+    // console.log('Appdata', Appdata)
 
-    //===>SEPARATOR
+    //===>TABLE COLUMNS
     const columns = this.getColumns(data,"deviceId");
-    const Appcolumns = this.getColumns(Appdata,"stackDefId")
-    // console.log(columns)
+    const Appcolumns = this.getColumns(Appdata,"versionId")
+    // console.log('Appcolumns', Appcolumns)
 
     //===>SEPARATOR
     const { toggleSelection, toggleAppSelection,
             toggleAll, toggleAllapps,
             isSelected, isAppSelected } = this;
+
     const { selectAll, selectAllApps } = this.state;
 
-    //===>SEPARATOR
+    //===>DEVICEBOXER PROPS
     const checkboxProps = {
       toggleSelection,
       toggleAll,
@@ -348,6 +357,7 @@ class ContentViewer extends Component {
       selectType: "checkbox"
     };
 
+    //===>APPBOXER PROPS
     const AppCheckboxProps = {
       toggleAppSelection,
       toggleAllapps,
@@ -359,7 +369,10 @@ class ContentViewer extends Component {
 
     // console.log('state', this.state.test)
     // const test = this.state.test
+    //
     const value = this.state.value
+
+    const appvalue = this.state.Appvalue
 
     // const pselection = this.state.selection
 
@@ -412,13 +425,13 @@ class ContentViewer extends Component {
           this.props.hostnames.length > 0
           ?
             <DeviceBoxer
-              // selectionx={this.handleChildFunc}
-              // cfecallback={this.cfeCallback}
               data={hostitems}
               columns={columns}
+
               onSwitcher={this.onSwitcher}
               switcher={this.state.ichecked}
               {...checkboxProps}
+              appvalue={appvalue}
             />
           :<div></div>
         }
@@ -431,6 +444,7 @@ class ContentViewer extends Component {
             <AppBoxer
               Appdata={appz}
               Appcolumns={Appcolumns}
+
               switcher={this.state.ichecked}
               {...AppCheckboxProps}
               value={value}
@@ -463,12 +477,12 @@ const mapStatetoProps = state => ({
   hostnames: state.hostnames.items,
   appz: state.hostnames.itemz,
   compatapps: state.hostnames.selectionApps,
-  // compatdevs: state.hostnames.selectionDevs
+  compatdevs: state.hostnames.selectionDevs
 });
 
 export default connect(mapStatetoProps, {
   fetchHosts,
   fetchAppz,
   fetchComptAppz,
-  // fetchComptDevs
+  fetchComptDevs
 })(ContentViewer);

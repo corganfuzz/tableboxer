@@ -11,7 +11,6 @@ class DeviceBoxer extends Component {
 
     this.state = {
       initial: this.props.data,
-      passedUri: [] //delete it if needed
     };
   }
 

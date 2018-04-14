@@ -48,7 +48,7 @@ export const fetchComptAppz = (deviceId) => dispatch => {
 
 export const fetchComptDevs = (versionId) => dispatch => {
   const URL = "https://johnsaidlongernameisbetter.azurewebsites.net/get_compat_devices/?list=[" + versionId + "]";
-  fetch(URL)
+  fetch( URL)
     .then (res => res.json())
       .then (compatDevs => {
         dispatch({

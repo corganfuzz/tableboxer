@@ -10,20 +10,25 @@ class AppBoxer extends Component {
     super (props);
 
     this.state = {
-      initial: [],
-      passedUri: []
+      initial: []
     }
   }
 
   componentWillReceiveProps(nextProps) {
 
-    console.log ('nexterApps',nextProps)
+    // console.log ('nexterApps',nextProps)
+
+    console.log('redux', this.props.Appdata)
 
     const parentvalue = nextProps.value
 
     this.setState({
       initial: parentvalue
     })
+
+    if (nextProps.switcher === true) {
+      this.setState({ initial: this.props.Appdata })
+    }
 
 
     // if (nextProps.switcher === true) {
@@ -62,7 +67,7 @@ class AppBoxer extends Component {
     return (
       <div>
           <CheckboxTable
-            keyField="stackDefId"
+            keyField="versionId"
             filterable
             noDataText="No Compatible Applications"
             ref={x => (this.checkboxTable = x)}
