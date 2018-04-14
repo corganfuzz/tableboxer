@@ -10,10 +10,12 @@ class DeviceBoxer extends Component {
     super(props);
 
     this.state = {
-      emptier: [],
+      initial: this.props.data,
       passedUri: []
     }
   }
+
+
 
 
 
@@ -30,10 +32,12 @@ class DeviceBoxer extends Component {
     switch (nextProps.switcher) {
 
       case true:
-      return this.props.data.length = 0;
+      return this.setState({ initial: [] })
+      // this.props.data.length = 0;
 
       case false:
-        return this.props.data.push(this.props.data)
+        return this.setState({ initial: this.props.data})
+      // this.props.data.push(this.props.data)
 
       default:
           return this.props.data
@@ -50,7 +54,7 @@ class DeviceBoxer extends Component {
             noDataText="No Compatible Devices"
             filterable
             ref={r => (this.checkboxTable = r)}
-            data={this.props.data}
+            data={this.state.initial}
             columns={this.props.columns}
             defaultPageSize={10}
             toggleSelection={this.props.toggleSelection}
