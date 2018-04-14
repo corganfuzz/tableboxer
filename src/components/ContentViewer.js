@@ -1,17 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import DeviceBoxer from "./DeviceBoxer";
-import AppBoxer from './AppBoxer'
+import AppBoxer from "./AppBoxer";
 import Kard from "./Kard";
-import ProgressMeter from './ProgressMeter';
-import { Toolbar, ToolbarGroup} from "material-ui/Toolbar";
+import ProgressMeter from "./ProgressMeter";
+import { Toolbar, ToolbarGroup } from "material-ui/Toolbar";
 import Toggle from "material-ui/Toggle";
 
-import { connect } from 'react-redux';
-import { fetchHosts } from '../actions/hostnameActions';
-import { fetchAppz } from "../actions/hostnameActions";
-// import axios from 'axios';
-import { fetchComptAppz } from '../actions/hostnameActions';
+import { connect } from "react-redux";
+import {
+  fetchHosts,
+  fetchAppz,
+  fetchComptAppz,
+  // fetchComptDevs
+} from "../actions/hostnameActions";
 
+
+// import axios from 'axios';
+//
 const styles = {
   center: {
     margin: 20,
@@ -29,8 +34,6 @@ const styles = {
 
 
 // const BASE_URL = "https://johnsaidlongernameisbetter.azurewebsites.net/get_compat_apps/?list=";
-
-
 
 class ContentViewer extends Component {
   constructor (props) {
@@ -68,6 +71,7 @@ class ContentViewer extends Component {
 
     this.props.fetchHosts();
     this.props.fetchAppz();
+    // this.props.fetchComptDevs();
 
 
     // if (this.state.selection.length > 0) {
@@ -83,7 +87,7 @@ class ContentViewer extends Component {
         value: nextProps.compatapps
       })
     }
-    // console.log('newpropers', nextProps)
+    console.log('newpropers', nextProps)
   }
 
   getData = (hostitems) => {
@@ -294,20 +298,8 @@ class ContentViewer extends Component {
       ichecked: !prevState.ichecked
     }));
 
-
-
     console.log('parent', this.state.ichecked)
-
-
-
-    // console.log(this.state.ichecked)
-
-    // if (this.state.ichecked === true) {
-    //       let hostitems = []
-    // }
-
   }
-
 
   handleOpen = () => {
     this.setState({
@@ -327,18 +319,7 @@ class ContentViewer extends Component {
 
     //===>FROM REDUX
     const appz = this.props.appz
-
-    // const hostitems = this.props.hostnames;
-
     let hostitems = this.props.hostnames
-
-      // if (this.state.ichecked === true) {
-      //   let hostitems = []
-      // } else {
-      //   let hostitems = this.props.hostnames
-      // }
-
-    // console.log (appz)
 
     //===>SEPARATOR
     const data = this.getData(hostitems);
@@ -450,6 +431,7 @@ class ContentViewer extends Component {
             <AppBoxer
               Appdata={appz}
               Appcolumns={Appcolumns}
+              switcher={this.state.ichecked}
               {...AppCheckboxProps}
               value={value}
               // test={test}
@@ -480,7 +462,13 @@ class ContentViewer extends Component {
 const mapStatetoProps = state => ({
   hostnames: state.hostnames.items,
   appz: state.hostnames.itemz,
-  compatapps: state.hostnames.selectionApps
+  compatapps: state.hostnames.selectionApps,
+  // compatdevs: state.hostnames.selectionDevs
 });
 
-export default connect(mapStatetoProps, { fetchHosts, fetchAppz, fetchComptAppz })(ContentViewer);
+export default connect(mapStatetoProps, {
+  fetchHosts,
+  fetchAppz,
+  fetchComptAppz,
+  // fetchComptDevs
+})(ContentViewer);

@@ -10,21 +10,30 @@ class AppBoxer extends Component {
     super (props);
 
     this.state = {
-      emptier: [],
+      initial: [],
       passedUri: []
     }
   }
 
   componentWillReceiveProps(nextProps) {
 
-    // console.log ('nexter',nextProps)
+    console.log ('nexterApps',nextProps)
 
-
-    const passedtest = nextProps.value
+    const parentvalue = nextProps.value
 
     this.setState({
-      passedUri: passedtest
+      initial: parentvalue
     })
+
+
+    // if (nextProps.switcher === true) {
+    //   this.setState({ initial: this.props.Appdata });
+    // } else {
+    //   this.setState({ initial: [] });
+    // }
+  }
+
+
 
     // const selectx = this.state.selectx
     // //
@@ -48,7 +57,6 @@ class AppBoxer extends Component {
     //   console.log(bro)
     //
     // }
-  }
 
   render () {
     return (
@@ -58,7 +66,7 @@ class AppBoxer extends Component {
             filterable
             noDataText="No Compatible Applications"
             ref={x => (this.checkboxTable = x)}
-            data={this.state.passedUri}
+            data={this.state.initial}
             columns={this.props.Appcolumns}
             defaultPageSize={10}
             toggleSelection={this.props.toggleAppSelection}

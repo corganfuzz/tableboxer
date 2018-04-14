@@ -1,6 +1,7 @@
 import { FETCH_HOSTNAMES,
          FETCH_APPZ,
          FETCH_COMPT_APPZ,
+         FETCH_COMPT_HOSTS
          // FETCH_HOSTNAMES_BEGIN
         } from "../actions/Types";
 
@@ -8,6 +9,7 @@ const initialState = {
   items: [],
   itemz: [],
   selectionApps: [],
+  selectionDevs: []
   // noItems: []
 };
 
@@ -33,6 +35,11 @@ export default function(state = initialState, action) {
         ...state,
         selectionApps: action.payload
       };
+    case FETCH_COMPT_HOSTS:
+      return {
+      ...state,
+      selectionDevs: action.payload
+    }
     default:
       return state;
   }
