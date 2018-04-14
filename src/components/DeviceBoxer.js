@@ -3,10 +3,43 @@ import ReactTable from "react-table";
 import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
 
-
 const CheckboxTable = checkboxHOC(ReactTable);
 
 class DeviceBoxer extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      emptier: [],
+      passedUri: []
+    }
+  }
+
+
+
+  componentWillReceiveProps (nextProps) {
+    console.log('nexter', nextProps)
+
+    // if (nextProps.switcher === true) {
+    //   console.log('dude')
+    //   this.props.data.length = 0
+    // } else {
+    //   console.log('bruh false')
+    // }
+
+    switch (nextProps.switcher) {
+
+      case true:
+      return this.props.data.length = 0;
+
+      case false:
+        return this.props.data.push(this.props.data)
+
+      default:
+          return this.props.data
+    }
+
+  }
 
   render () {
 
@@ -14,7 +47,7 @@ class DeviceBoxer extends Component {
       <div>
           <CheckboxTable
             keyField="deviceId"
-            noDataText="Value not found"
+            noDataText="No Compatible Devices"
             filterable
             ref={r => (this.checkboxTable = r)}
             data={this.props.data}

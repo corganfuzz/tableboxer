@@ -20,6 +20,10 @@ const styles = {
   label: {
     color: '#8b8b8b',
     fontSize: 16
+  },
+  span: {
+    width: 150,
+    color: '#8b8b8b'
   }
 };
 
@@ -36,7 +40,7 @@ class ContentViewer extends Component {
 
     this.state = {
       open: false,
-      // loading: false,
+
       selection: [],
       selectAll: false,
       cfes: [],
@@ -45,9 +49,10 @@ class ContentViewer extends Component {
       selectAllApps: false,
       appz: [],
 
-      comptAppsId: [],
+
       test:[],
-      value: []
+      value: [],
+      ichecked: false,
 
 
     }
@@ -74,12 +79,14 @@ class ContentViewer extends Component {
 
   componentWillReceiveProps (nextProps) {
     if (nextProps.compatapps) {
-      this.setState({ value: nextProps.compatapps})
+      this.setState({
+        value: nextProps.compatapps
+      })
     }
     // console.log('newpropers', nextProps)
   }
 
-  getData(hostitems) {
+  getData = (hostitems) => {
     const data = hostitems.map(item => {
       return {
         // _id,
@@ -134,8 +141,10 @@ class ContentViewer extends Component {
     this.setState({
       selection: selection,
     });
+
     console.log('up', selection)
 
+    //====> REDUX
     this.props.fetchComptAppz(selection);
 
 
@@ -273,14 +282,38 @@ class ContentViewer extends Component {
   //
   // }
 
+  onSwitcher = (e) => {
+
+    // const checked = e.target.checked
+
+    // this.setState({
+    //   ichecked: e.target.checked
+    // })
+
+    this.setState(prevState => ({
+      ichecked: !prevState.ichecked
+    }));
+
+
+
+    console.log('parent', this.state.ichecked)
+
+
+
+    // console.log(this.state.ichecked)
+
+    // if (this.state.ichecked === true) {
+    //       let hostitems = []
+    // }
+
+  }
+
 
   handleOpen = () => {
     this.setState({
       open: true
     })
-
     this.logSelection();
-    // this.logIds();
   }
 
   handleClose = () => {
@@ -289,138 +322,22 @@ class ContentViewer extends Component {
     })
   }
 
-  //   ?list=[" + selectedData.join() + "];
-
-
-
-
-  // handleChildFunc = (arr, evt) => {
-  //   console.log('here', arr)
-  // }
-  //
-  // handleChange (e) {
-  //       var myInput = this.state.test;
-  //       this.setState({
-  //         value: myInput
-  //       })
-  //       this.props.fetchComptAppz(this.state.test, myInput);
-  //
-  //     }
-
-
   render() {
-
-    // const MyCheckbox = (props) => {
-    //   return (
-    //     <input
-    //       type={props.selectType || 'checkbox'}
-    //
-    //       checked={props.checked}
-    //
-    //       onClick={(e) => {
-    //
-    //         const { shiftKey } = e;
-    //
-    //         e.stopPropagation();
-    //
-    //         props.onClick(props.id, shiftKey, props.row);
-    //
-    //         const test = JSON.parse("[" + props.id+ "]") // to convert to array
-    //
-    //         const joined = this.state.test.concat(test)
-    //
-    //           this.setState({
-    //             test: joined
-    //           })
-    //
-    //           console.log('joined', joined)
-    //
-    //             this.handleClicker(joined);
-    //
-    //         // console.log('propers', props)
-    //
-    //
-    //
-    //         // console.log ('state', this.state.test)
-    //
-    //           // console.log("joined", joined);
-    //
-    //           // var joined = []
-    //           //
-    //           // if (props.checked === false) {
-    //           //
-    //           //   joined = this.state.test.concat(test) // to have multiple values inside array
-    //           //
-    //           //   this.handleClicker(joined);
-    //           //
-    //           //   this.setState({
-    //           //     test: joined
-    //           //   })
-    //           //
-    //           //   console.log('joined', joined);
-    //           //
-    //           // } else {
-    //           //
-    //           //     // function remove(array, element) {
-    //           //     //   return array.filter(e => e !== element)
-    //           //     // }
-    //           //
-    //           //     joined = joined.filter(a => a !== props.id)
-    //           //
-    //           //     // const result = remove(joined, props.id)
-    //           //     // const result = joined.slice(0)
-    //           //
-    //           //     // for (let i =0; i<joined.length; i++) {
-    //           //     //
-    //           //     //   let newp = joined[i];
-    //           //     //
-    //           //     //   console.log('new', newp)
-    //           //     //
-    //           //     // }
-    //           //
-    //           //     // let giveId = joined.map( x => joined[x])
-    //           //
-    //           //     // const selectedA = props.id
-    //           //     //
-    //           //     // console.log('give', selectedA)
-    //           //
-    //           //     //
-    //           //     console.log('result', joined)
-    //           //
-    //           //   }
-    //
-    //             //   else {
-    //             //
-    //             // }
-    //
-    //             // const selectedDs =
-    //             //   .filter(joint => {
-    //             //     return joined.includes();
-    //             //   })
-    //             //   .map(deviceId => deviceId.id)
-    //             //
-    //             //   console.log('selectedDs', selectedDs)
-    //             //
-    //
-    //
-    //
-    //
-    //       }}
-    //       onChange={() => {
-    //
-    //       }}
-    //     />
-    //   )
-    // }
-
-    // const compat = this.props.compatapps
-    // console.log('bro', compat)
     // this.props.fetchComptAppz(this.state.test); INFINITE LOOP
-    // console.log(this.props.compatapps)
 
     //===>FROM REDUX
     const appz = this.props.appz
-    const hostitems = this.props.hostnames;
+
+    // const hostitems = this.props.hostnames;
+
+    let hostitems = this.props.hostnames
+
+      // if (this.state.ichecked === true) {
+      //   let hostitems = []
+      // } else {
+      //   let hostitems = this.props.hostnames
+      // }
+
     // console.log (appz)
 
     //===>SEPARATOR
@@ -462,13 +379,12 @@ class ContentViewer extends Component {
     // console.log('state', this.state.test)
     // const test = this.state.test
     const value = this.state.value
+
     // const pselection = this.state.selection
 
     // console.log('value', this.state.value)
     //
     // console.log('test', this.state.test)
-
-
 
     return (
       <div style={styles.center}>
@@ -491,9 +407,12 @@ class ContentViewer extends Component {
           <div className="col-xs-12">
             <Toolbar>
               <ToolbarGroup>
+                <span style={styles.span}>Applications</span>
                 <Toggle
-                  label="Filter by CFE"
+                  onToggle={(e) => this.onSwitcher(e)}
+                  label="CFES"
                   labelPosition="right"
+                  // toggled={this.state.ichecked}
                   labelStyle={styles.label}
                 />
                 {/* <ToolbarTitle text="Filter by CFE" /> */}
@@ -502,7 +421,7 @@ class ContentViewer extends Component {
 
             </Toolbar>
           </div>
-          <div className="col-xs-6"></div>
+
         </div>
 
 
@@ -516,6 +435,8 @@ class ContentViewer extends Component {
               // cfecallback={this.cfeCallback}
               data={hostitems}
               columns={columns}
+              onSwitcher={this.onSwitcher}
+              switcher={this.state.ichecked}
               {...checkboxProps}
             />
           :<div></div>
