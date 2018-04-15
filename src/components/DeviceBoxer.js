@@ -15,8 +15,7 @@ class DeviceBoxer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log("nexter", nextProps);
-
+    console.log("HERE YO", nextProps);
     // switch (nextProps.switcher) {
     //
     //   case true:
@@ -30,15 +29,25 @@ class DeviceBoxer extends Component {
     //   default:
     //       return this.props.data
     // }
+    this.setState({
+      initial: nextProps.CompatDevs
+    })
+
+    // console.log('final', this.state.initial)
 
     if (nextProps.switcher === true) {
-      this.setState({ initial: [] });
+      this.setState({ initial: []  });
     } else {
       this.setState({ initial: this.props.data });
     }
+
+
   }
 
   render() {
+
+
+
     return (
       <div>
         <CheckboxTable

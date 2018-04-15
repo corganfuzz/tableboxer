@@ -55,5 +55,5 @@ export const fetchComptDevs = (versionId) => dispatch => {
           type: FETCH_COMPT_HOSTS,
           payload: compatDevs
         })
-      })
+      });
 }

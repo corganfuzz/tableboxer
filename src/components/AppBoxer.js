@@ -16,14 +16,12 @@ class AppBoxer extends Component {
 
   componentWillReceiveProps(nextProps) {
 
-    // console.log ('nexterApps',nextProps)
+    console.log("HERE YO 2", nextProps);
 
-    console.log('redux', this.props.Appdata)
-
-    const parentvalue = nextProps.value
+    // console.log('redux', this.props.Appdata)
 
     this.setState({
-      initial: parentvalue
+      initial: nextProps.CompatApps
     })
 
     if (nextProps.switcher === true) {

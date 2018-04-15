@@ -47,12 +47,12 @@ class ContentViewer extends Component {
       selection: [],
       selectAll: false,
       cfes: [],
-      value: [],
+      CompatApps: [],
 
       Appselection: [],
       selectAllApps: false,
       appz: [],
-      Appvalue: [],
+      CompatDevs: [],
 
 
       test:[],
@@ -64,7 +64,7 @@ class ContentViewer extends Component {
   }
 
 
-  onFilteredChange(column, value) {
+  onFilteredChange(column, CompatApps, CompatDevs) {
     this.filtering = true;
   }
 
@@ -73,23 +73,27 @@ class ContentViewer extends Component {
 
     this.props.fetchHosts();
     this.props.fetchAppz();
-    // this.props.fetchComptDevs();
-
 
     // if (this.state.selection.length > 0) {
-    //
     //     this.props.fetchComptAppz();
-    //
     // }
   }
 
   componentWillReceiveProps (nextProps) {
+
     if (nextProps.compatapps) {
       this.setState({
-        value: nextProps.compatapps,
-        // Appvalue: nextProps.compatdevs
+        CompatApps: nextProps.compatapps
       })
+
+    if (nextProps.compatdevs) {
+      this.setState({
+        CompatDevs: nextProps.compatdevs
+        })
+      }
+
     }
+
     // console.log('newpropers', nextProps)
   }
 
@@ -149,12 +153,12 @@ class ContentViewer extends Component {
       selection: selection,
     });
 
-    console.log('up', selection)
+    // console.log('up', selection)
 
+    // if (this.state.ichecked === false) {
     //====> REDUX
-    this.props.fetchComptAppz(selection);
-
-
+      this.props.fetchComptAppz(selection);
+    // }
   };
 
   toggleAppSelection = (key, shift, row) => {
@@ -175,9 +179,12 @@ class ContentViewer extends Component {
       Appselection: Appselection,
     });
 
-    //====> REDUX
-    this.props.fetchComptDevs(Appselection);
+    // console.log('down', Appselection)
 
+    // if (this.state.ichecked === true) {
+    //====> REDUX
+      this.props.fetchComptDevs(Appselection);
+    // }
 
   };
 
@@ -281,9 +288,9 @@ class ContentViewer extends Component {
   //           // console.log ('yo', yo)
   //
   //           this.setState({
-  //             value: yo
+  //             CompatApps: yo
   //           });
-  //               // console.log('yo', this.state.value)
+  //               // console.log('yo', this.state.CompatApps)
   //         })
   //
   //       .catch( function(error){
@@ -304,7 +311,7 @@ class ContentViewer extends Component {
       ichecked: !prevState.ichecked
     }));
 
-    console.log('parent', this.state.ichecked)
+    // console.log('parent', this.state.ichecked)
   }
 
   handleOpen = () => {
@@ -370,13 +377,13 @@ class ContentViewer extends Component {
     // console.log('state', this.state.test)
     // const test = this.state.test
     //
-    const value = this.state.value
+    const CompatApps = this.state.CompatApps
 
-    const appvalue = this.state.Appvalue
+    const CompatDevs = this.state.CompatDevs
 
     // const pselection = this.state.selection
 
-    // console.log('value', this.state.value)
+    // console.log('CompatApps', this.state.CompatApps)
     //
     // console.log('test', this.state.test)
 
@@ -428,10 +435,10 @@ class ContentViewer extends Component {
               data={hostitems}
               columns={columns}
 
-              onSwitcher={this.onSwitcher}
+              // onSwitcher={this.onSwitcher}
               switcher={this.state.ichecked}
               {...checkboxProps}
-              appvalue={appvalue}
+              CompatDevs={CompatDevs}
             />
           :<div></div>
         }
@@ -447,9 +454,7 @@ class ContentViewer extends Component {
 
               switcher={this.state.ichecked}
               {...AppCheckboxProps}
-              value={value}
-              // test={test}
-              // selection={pselection}
+              CompatApps={CompatApps}
             />
           :<div></div>
         }
