@@ -10,22 +10,37 @@ class AppBoxer extends Component {
     super (props);
 
     this.state = {
-      initial: []
+      initialApp: []
     }
   }
 
   componentWillReceiveProps(nextProps) {
 
-    console.log("HERE YO 2", nextProps);
-
-    // console.log('redux', this.props.Appdata)
+    // console.log("APPBOXER YO", nextProps);
 
     this.setState({
-      initial: nextProps.CompatApps
+      initialApp: nextProps.CompatApps
     })
 
-    if (nextProps.switcher === true) {
-      this.setState({ initial: this.props.Appdata })
+    // if (nextProps.switcher === true) {
+    //   this.setState({ initialApp: this.props.Appdata })
+    // }
+    // else {
+    //   this.setState({ initialApp: [] })
+    // }
+
+    switch (nextProps.switcher) {
+
+      case true:
+      return this.setState({ initialApp: this.props.Appdata })
+      // this.props.data.length = 0;
+
+      // case false:
+      //   return this.setState({ initialApp: [] })
+      // this.props.data.push(this.props.data)
+
+      default:
+          return []
     }
 
 
@@ -38,29 +53,6 @@ class AppBoxer extends Component {
 
 
 
-    // const selectx = this.state.selectx
-    // //
-    // // console.log('here', selectx)
-    // //
-    // if(selectx.length > 0){
-    //   this.props.fetchComptAppz(selectx)
-    //
-    //   // console.log ('dude', this.props.fetchComptAppz(selectx))
-    // }
-
-    //
-    //  if(this.state.selectx.length > 0){
-    //
-    //   const bro = this.props.fetchComptAppz(selectx)
-    //
-    // // this.setState({
-    // //   passedUri: bro
-    // // })
-    // //
-    //   console.log(bro)
-    //
-    // }
-
   render () {
     return (
       <div>
@@ -69,7 +61,7 @@ class AppBoxer extends Component {
             filterable
             noDataText="No Compatible Applications"
             ref={x => (this.checkboxTable = x)}
-            data={this.state.initial}
+            data={this.state.initialApp}
             columns={this.props.Appcolumns}
             defaultPageSize={10}
             toggleSelection={this.props.toggleAppSelection}

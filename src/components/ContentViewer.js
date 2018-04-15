@@ -85,17 +85,20 @@ class ContentViewer extends Component {
       this.setState({
         CompatApps: nextProps.compatapps
       })
+    }
 
     if (nextProps.compatdevs) {
       this.setState({
         CompatDevs: nextProps.compatdevs
         })
       }
-
-    }
-
     // console.log('newpropers', nextProps)
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('nprops',nextProps)
+  //   console.log('nstate',nextState)
+  // }
 
   getData = (hostitems) => {
     const data = hostitems.map(item => {
@@ -175,6 +178,7 @@ class ContentViewer extends Component {
     } else {
       Appselection.push(key);
     }
+
     this.setState({
       Appselection: Appselection,
     });

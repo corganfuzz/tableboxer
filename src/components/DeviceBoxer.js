@@ -10,12 +10,14 @@ class DeviceBoxer extends Component {
     super(props);
 
     this.state = {
-      initial: this.props.data,
+      initialDev: this.props.data,
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("HERE YO", nextProps);
+    // console.log("DEVICEBOXER YO", nextProps.CompatDevs);
+
+
     // switch (nextProps.switcher) {
     //
     //   case true:
@@ -29,16 +31,16 @@ class DeviceBoxer extends Component {
     //   default:
     //       return this.props.data
     // }
+    // this.setState({
+    //   initial: nextProps.CompatDevs
+    // })
+
     this.setState({
-      initial: nextProps.CompatDevs
+      initialDev: nextProps.CompatDevs
     })
 
-    // console.log('final', this.state.initial)
-
-    if (nextProps.switcher === true) {
-      this.setState({ initial: []  });
-    } else {
-      this.setState({ initial: this.props.data });
+    if (nextProps.switcher === false) {
+      this.setState({ initialDev: this.props.data });
     }
 
 
@@ -46,7 +48,7 @@ class DeviceBoxer extends Component {
 
   render() {
 
-
+    // console.log('final', this.state.initial)
 
     return (
       <div>
@@ -55,7 +57,7 @@ class DeviceBoxer extends Component {
           noDataText="No Compatible Devices"
           filterable
           ref={r => (this.checkboxTable = r)}
-          data={this.state.initial}
+          data={this.state.initialDev}
           columns={this.props.columns}
           defaultPageSize={10}
           toggleSelection={this.props.toggleSelection}
