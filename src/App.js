@@ -3,6 +3,7 @@ import AppBar from "material-ui/AppBar";
 import "./App.css";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import ContentViewer from "./components/ContentViewer";
+// import BoxerNew from './components/BoxerNew';
 
 import { Provider } from "react-redux";
 import store from "./store";
@@ -25,6 +26,8 @@ class App extends Component {
             />
 
             <ContentViewer />
+
+            {/* <BoxerNew /> */}
 
           </div>
 

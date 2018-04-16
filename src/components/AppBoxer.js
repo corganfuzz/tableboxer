@@ -68,7 +68,7 @@ class AppBoxer extends Component {
             isSelected={this.props.isAppSelected}
             selectType={this.props.selectType}
             selectAll={this.props.selectAllApps}
-            toggleAll={this.props.toggleAllapps}
+            // toggleAll={this.props.toggleAllApps}
           />
       </div>
     );

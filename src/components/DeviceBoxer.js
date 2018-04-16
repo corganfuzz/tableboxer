@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactTable from "react-table";
-import "react-table/react-table.css";
 import checkboxHOC from "react-table/lib/hoc/selectTable";
+import "react-table/react-table.css";
 
 const CheckboxTable = checkboxHOC(ReactTable);
 
@@ -10,13 +10,38 @@ class DeviceBoxer extends Component {
     super(props);
 
     this.state = {
-      initialDev: this.props.data,
+      initialDev: [],
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.log("DEVICEBOXER YO", nextProps.CompatDevs);
+  // componentDidMount () {
+  //   this.props.onRef(this)
+  // }
 
+  // componentWillUnmount() {
+  //   this.props.onRef(undefined)
+  // }
+
+  componentWillMount () {
+
+    // let emptyArray = this.props.data.slice(0);
+    // emptyArray.length = 0;
+
+    this.setState({
+      initialDev: this.props.data
+    });
+
+
+
+    // console.log('temp', tempArray)
+    // console.log('after', this.props.data)
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // console.log("DEVICEBOXER YO", nextProps);
+
+    // let emptyArray = this.props.data.slice(0)
 
     // switch (nextProps.switcher) {
     //
@@ -35,18 +60,55 @@ class DeviceBoxer extends Component {
     //   initial: nextProps.CompatDevs
     // })
 
+    // let tempArray = this.props.data.slice(0)
+
+
     this.setState({
-      initialDev: nextProps.CompatDevs
+      initialDev: nextProps.CompatDevs,
     })
 
     if (nextProps.switcher === false) {
-      this.setState({ initialDev: this.props.data });
+      this.setState({
+        initialDev: this.props.data
+      });
     }
+
+    // if (nextProps.switcher === true) {
+    //   // this.props.data.length = 0
+
+    // }
 
 
   }
 
+  toggleAll = () => {
+    const selectAll = this.state.selectAll ? false : true;
+    const selection = [];
+
+    if (selectAll) {
+      const wrappedInstance = this.checkboxTable.getWrappedInstance();
+
+      const currentRecords = wrappedInstance.getResolvedState().sortedData;
+
+      console.log('wrap1',currentRecords)
+
+      currentRecords.forEach(item => {
+        selection.push(item._original.deviceId);
+      });
+
+      currentRecords.length = 0
+    }
+
+    // this.setState({ selectAll, selection });
+  };
+
   render() {
+
+    const { toggleAll } = this;
+
+    const Propers = {
+      toggleAll
+    }
 
     // console.log('final', this.state.initial)
 
@@ -56,6 +118,7 @@ class DeviceBoxer extends Component {
           keyField="deviceId"
           noDataText="No Compatible Devices"
           filterable
+          // onRef={this.props.onRef}
           ref={r => (this.checkboxTable = r)}
           data={this.state.initialDev}
           columns={this.props.columns}
@@ -64,11 +127,11 @@ class DeviceBoxer extends Component {
           isSelected={this.props.isSelected}
           selectType={this.props.selectType}
           SelectInputComponent={this.props.SelectInputComponent}
-          selectAll={this.props.selectAll}
-          toggleAll={this.props.toggleAll}
-          // {...checkboxProps}
-          // onClick={logSelection}
-          // logSelection={this.props.logSelection}
+          // selectAll={this.props.selectAll}
+          // toggleAll={this.toggleAll}
+          {...Propers}
+          // getTrProps={this.props.getTrProps}
+
         />
       </div>
     );
