@@ -400,11 +400,6 @@ class ContentViewer extends Component {
 
 
 
-
-
-
-
-
   render() {
     // this.props.fetchComptAppz(this.state.test); INFINITE LOOP
 
@@ -554,7 +549,7 @@ class ContentViewer extends Component {
     // console.log('CompatApps', this.state.CompatApps)
     //
     // console.log('test', this.state.test)
-
+    console.log('propers', this.props)
     return (
       <div style={styles.center}>
         <div className="row">
