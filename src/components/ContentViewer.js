@@ -5,7 +5,7 @@ import Kard from "./Kard";
 import ProgressMeter from "./ProgressMeter";
 import { Toolbar, ToolbarGroup } from "material-ui/Toolbar";
 import Toggle from "material-ui/Toggle";
-// import Checkbox from 'material-ui/Checkbox';
+import Checkbox from 'material-ui/Checkbox';
 
 import { connect } from "react-redux";
 import {
@@ -15,7 +15,7 @@ import {
   fetchComptDevs
 } from "../actions/hostnameActions";
 
-import Gerald from './Gerald';
+// import Gerald from './Gerald';
 
 
 
@@ -398,44 +398,48 @@ class ContentViewer extends Component {
     })
   }
 
+  unCheck = () => {
+    // let ref = 'ref_';
+    // this.refs[ref].checked = !this.refs[ref].checked;
+    // // console.log('uncheek', e.target)
+
+    this.setState({ selection: []})
+  }
+
 
 
   render() {
     // this.props.fetchComptAppz(this.state.test); INFINITE LOOP
 
 
-    // class Gerald extends Component {
+    class Gerald extends Component {
 
-    //   unCheck = () => {
-    //     let ref = 'ref_';
-    //     this.refs[ref].checked = !this.refs[ref].checked;
-    //     // console.log('uncheek', e.target)
-    //   }
 
-    //   render () {
-    //     return (
-    //     <Checkbox
-    //       // type={props.selectType || 'checkbox'}
-    //       // inputStyle={styles.yolookInput}
-    //       style={{textAlign: 'left'}}
-    //       checked={this.props.checked}
-    //       ref={'ref_'}
-    //       onClick={(e) => {
 
-    //         const { shiftKey } = e;
+      render () {
+        return (
+        <Checkbox
+          // type={props.selectType || 'checkbox'}
+          // inputStyle={styles.yolookInput}
+          style={{textAlign: 'left'}}
+          checked={this.props.checked}
+          // ref={'ref_'}
+          onClick={(e) => {
 
-    //         e.stopPropagation();
+            const { shiftKey } = e;
 
-    //         this.props.onClick(this.props.id, shiftKey, this.props.row);
+            e.stopPropagation();
 
-    //         // console.log(props.checked)
+            this.props.onClick(this.props.id, shiftKey, this.props.row);
 
-    //       }}
+            // console.log(props.checked)
 
-    //     />
-    //     );
-    //   }
-    // }
+          }}
+
+        />
+        );
+      }
+    }
 
 
     // const MyCheckbox = (props) => {
