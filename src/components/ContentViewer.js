@@ -5,7 +5,7 @@ import Kard from "./Kard";
 import ProgressMeter from "./ProgressMeter";
 import { Toolbar, ToolbarGroup } from "material-ui/Toolbar";
 import Toggle from "material-ui/Toggle";
-import Checkbox from 'material-ui/Checkbox';
+// import Checkbox from 'material-ui/Checkbox';
 
 import { connect } from "react-redux";
 import {
@@ -15,8 +15,8 @@ import {
   fetchComptDevs
 } from "../actions/hostnameActions";
 
-// import Gerald from './Gerald';
-
+import Gerald from './Gerald';
+import AppCheckBox from './AppCheckBox';
 
 
 const styles = {
@@ -63,37 +63,6 @@ class ContentViewer extends Component {
     }
   }
 
-
-  onChange = (e, i) => {
-
-    // let value = this.state.value.slice()
-
-    // const value = e.target.checked
-
-    // const test = JSON.parse("[" + value + "]")
-
-    // const joined = this.state.value.concat(value)
-
-    // this.setState({
-    //     value:[...this.state.value, value]
-    // })
-
-    // value[i] = e.target.checked;
-
-    // console.log('value', this.state.value)
-    // // this.setState({value})
-
-    // console.log ('e', e)
-    // console.log('i', i)
-
-    // console.log('after', this.state.value)
-
-  }
-
-  unChecker = () => {
-
-  }
-
   componentWillMount() {
 
     this.props.fetchHosts();
@@ -126,11 +95,6 @@ class ContentViewer extends Component {
 
     // console.log('newpropers', nextProps)
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('nprops',nextProps)
-  //   console.log('nstate',nextState)
-  // }
 
   getData = (hostitems) => {
     const data = hostitems.map(item => {
@@ -187,18 +151,6 @@ class ContentViewer extends Component {
     this.setState({
       selection: selection,
     });
-
-
-
-
-    // this.setState({
-    //   selection: selection,
-    // });
-
-
-    // console.log('e', e.target)
-    // console.log('shift', shift)
-    // console.log('row', row)
 
       // if (this.state.ichecked === true) {
     //====> REDUX
@@ -353,35 +305,28 @@ class ContentViewer extends Component {
   //       });
   //
   // }
+  //
+
+  devsUnchecker = () => {
+    this.setState({ selection: [] })
+  }
+
+  appsUnchecker = () => {
+    this.setState({ Appselection: [] })
+  }
 
   onSwitcher = (e) => {
-
-
     // this.setState({
     //   ichecked: e.target.checked
     // })
-
     this.setState(prevState => ({
       ichecked: !prevState.ichecked
     }));
 
-
     // if (this.state.ichecked === true) {
-
+      this.devsUnchecker();
+      this.appsUnchecker();
     // }
-
-
-
-    // this.setState({
-    //   ichecked: !this.state.ichecked
-    // })
-
-    // if (this.state.checked === true) {
-    //   this.setState({
-    //     selection: []
-    //   })
-    // }
-
     // console.log('parent', this.state.ichecked)
   }
 
@@ -398,49 +343,35 @@ class ContentViewer extends Component {
     })
   }
 
-  unCheck = () => {
-    // let ref = 'ref_';
-    // this.refs[ref].checked = !this.refs[ref].checked;
-    // // console.log('uncheek', e.target)
 
-    this.setState({ selection: []})
-  }
 
 
 
   render() {
     // this.props.fetchComptAppz(this.state.test); INFINITE LOOP
-
-
-    class Gerald extends Component {
-
-
-
-      render () {
-        return (
-        <Checkbox
-          // type={props.selectType || 'checkbox'}
-          // inputStyle={styles.yolookInput}
-          style={{textAlign: 'left'}}
-          checked={this.props.checked}
-          // ref={'ref_'}
-          onClick={(e) => {
-
-            const { shiftKey } = e;
-
-            e.stopPropagation();
-
-            this.props.onClick(this.props.id, shiftKey, this.props.row);
-
-            // console.log(props.checked)
-
-          }}
-
-        />
-        );
-      }
-    }
-
+    // class Gerald extends Component {
+    //   render () {
+    //     return (
+    //     <Checkbox
+    //       // type={props.selectType || 'checkbox'}
+    //       style={{textAlign: 'left'}}
+    //       checked={this.props.checked}
+    //       onClick={(e) => {
+    //
+    //         const { shiftKey } = e;
+    //
+    //         e.stopPropagation();
+    //
+    //         this.props.onClick(this.props.id, shiftKey, this.props.row);
+    //
+    //         // console.log(props.checked)
+    //
+    //       }}
+    //
+    //     />
+    //     );
+    //   }
+    // }
 
     // const MyCheckbox = (props) => {
 
@@ -485,16 +416,8 @@ class ContentViewer extends Component {
     //       }}
 
     //     />
-
-
-
     //   )
     // }
-
-
-
-
-
 
     //===>FROM REDUX
     const hostitems = this.props.hostnames
@@ -520,6 +443,17 @@ class ContentViewer extends Component {
 
     const { selectAll, selectAllApps } = this.state;
 
+    //===>APPBOXER PROPS
+    const AppCheckboxProps = {
+      toggleAppSelection,
+      toggleAllApps,
+      selectAllApps,
+      isAppSelected,
+      // logSelection,
+      SelectInputComponent: AppCheckBox,
+      selectType: "checkbox",
+    };
+
     //===>DEVICEBOXER PROPS
     const checkboxProps = {
       toggleSelection,
@@ -531,15 +465,7 @@ class ContentViewer extends Component {
       selectType: "checkbox",
     };
 
-    //===>APPBOXER PROPS
-    const AppCheckboxProps = {
-      toggleAppSelection,
-      toggleAllApps,
-      selectAllApps,
-      isAppSelected,
-      // logSelection,
-      selectType: "checkbox"
-    };
+
 
     // console.log('state', this.state.test)
     // const test = this.state.test
@@ -553,7 +479,7 @@ class ContentViewer extends Component {
     // console.log('CompatApps', this.state.CompatApps)
     //
     // console.log('test', this.state.test)
-    console.log('propers', this.props)
+    // console.log('propers', this.props)
     return (
       <div style={styles.center}>
         <div className="row">
@@ -613,10 +539,10 @@ class ContentViewer extends Component {
         }
 <br/>
         <button
-          onClick={() => this.unCheck()}
+          onClick={() => this.devsUnchecker()}
         >
 
-          Toggleb
+          UnCheck All
 
         </button>
 

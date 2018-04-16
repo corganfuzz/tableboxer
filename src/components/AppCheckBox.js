@@ -1,7 +1,7 @@
 import React from "react";
 import Checkbox from "material-ui/Checkbox";
 
-const Gerald = (props) => {
+const AppCheckBox = (props) => {
   return (
     <Checkbox
       type={props.selectType || 'checkbox'}
@@ -16,4 +16,4 @@ const Gerald = (props) => {
   )
 }
 
-export default Gerald;
+export default AppCheckBox;

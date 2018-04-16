@@ -23,7 +23,6 @@ class DeviceBoxer extends Component {
   // }
 
   componentWillMount () {
-
     // let emptyArray = this.props.data.slice(0);
     // emptyArray.length = 0;
 
@@ -31,18 +30,13 @@ class DeviceBoxer extends Component {
       initialDev: this.props.data
     });
 
-
-
-    // console.log('temp', tempArray)
-    // console.log('after', this.props.data)
-
   }
 
   componentWillReceiveProps(nextProps) {
+
+
     // console.log("DEVICEBOXER YO", nextProps);
-
     // let emptyArray = this.props.data.slice(0)
-
     // switch (nextProps.switcher) {
     //
     //   case true:
@@ -59,10 +53,6 @@ class DeviceBoxer extends Component {
     // this.setState({
     //   initial: nextProps.CompatDevs
     // })
-
-    // let tempArray = this.props.data.slice(0)
-
-
     this.setState({
       initialDev: nextProps.CompatDevs,
     })
@@ -72,13 +62,6 @@ class DeviceBoxer extends Component {
         initialDev: this.props.data
       });
     }
-
-    // if (nextProps.switcher === true) {
-    //   // this.props.data.length = 0
-
-    // }
-
-
   }
 
   toggleAll = () => {
@@ -131,7 +114,6 @@ class DeviceBoxer extends Component {
           // toggleAll={this.toggleAll}
           {...Propers}
           // getTrProps={this.props.getTrProps}
-
         />
       </div>
     );

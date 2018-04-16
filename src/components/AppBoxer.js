@@ -42,8 +42,6 @@ class AppBoxer extends Component {
       default:
           return []
     }
-
-
     // if (nextProps.switcher === true) {
     //   this.setState({ initial: this.props.Appdata });
     // } else {
@@ -58,8 +56,8 @@ class AppBoxer extends Component {
       <div>
           <CheckboxTable
             keyField="versionId"
-            filterable
             noDataText="No Compatible Applications"
+            filterable
             ref={x => (this.checkboxTable = x)}
             data={this.state.initialApp}
             columns={this.props.Appcolumns}
@@ -68,6 +66,7 @@ class AppBoxer extends Component {
             isSelected={this.props.isAppSelected}
             selectType={this.props.selectType}
             selectAll={this.props.selectAllApps}
+            SelectInputComponent={this.props.SelectInputComponent}
             // toggleAll={this.props.toggleAllApps}
           />
       </div>
