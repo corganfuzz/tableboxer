@@ -27,7 +27,7 @@ class DeviceBoxer extends Component {
     // emptyArray.length = 0;
 
     this.setState({
-      initialDev: this.props.data
+      initialDev: this.props.karl
     });
 
   }

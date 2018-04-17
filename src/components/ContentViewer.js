@@ -320,7 +320,9 @@ class ContentViewer extends Component {
     //   ichecked: e.target.checked
     // })
     this.setState(prevState => ({
-      ichecked: !prevState.ichecked
+      ichecked: !prevState.ichecked,
+      CompatDevs: [],
+      CompatApps: []
     }));
 
     // if (this.state.ichecked === true) {
@@ -527,6 +529,7 @@ class ContentViewer extends Component {
             <DeviceBoxer
               // ref={r => (this.checkboxTable = r)}
               // ref={r => (this.checkboxTable = r)}
+              karl={this.props.hostnames}
               data={hostitems}
               columns={columns}
               // ref={r => (this.checkboxTable = r)}
